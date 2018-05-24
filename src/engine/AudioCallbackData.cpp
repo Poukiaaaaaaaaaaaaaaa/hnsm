@@ -37,7 +37,7 @@ void AudioCallbackData::addSound(AudioData data)
 	{
 		if (sounds[i].exists == false)
 		{
-			this->setSound(i, data);
+			setSound(i, data);
 			break;
 		}
 	}

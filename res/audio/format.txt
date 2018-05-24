@@ -1,0 +1,4 @@
+File format: WAV
+Channels: Stereo
+Sample Rate: 41000 kHz
+Sample Size: 32 bits

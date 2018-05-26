@@ -9,7 +9,7 @@
  *	mémoire dans lequel sont stockées les données enregistrées (membre inutilisé
  *	dans notre cas)
  *
- *	- 'output': poiteur désignant un emplacement mémoire directement lu par l'appareil
+ *	- 'output': pointeur désignant un emplacement mémoire directement lu par l'appareil
  *	audio, c'est à cet emplacement mémoire que les données audio seront placées
  *
  *	- 'frameCount': membre géré par l'appareil audio, contenant le nombre d'échantillons
@@ -39,7 +39,7 @@ static int streamCallback(const void *input, void *output, unsigned long frameCo
 
 	/*
 	 *	Variables permettant de récupérer le nombre d'échantillons chargés depuis
-	 *	les fichiers audio (séparés en deux catégories: "loop" et "sound")
+	 *	les fichiers audio (séparés en deux catégories: "loop" et "sounds")
 	 *
 	 */
 	sf_count_t loop_item_count;
@@ -103,7 +103,7 @@ static int streamCallback(const void *input, void *output, unsigned long frameCo
 		/*
 		 *	Une fois arrivé à la fin du fichier audio, celui-ci et rechargé.
 		 *	Se lecture sera alors impossible jusqu'à ce qu'il le soit
-		 *	Ce procédé est unique à la "loop" qui, contrairement aux "sound",
+		 *	Ce procédé est unique à la "loop" qui, contrairement aux "sounds",
 		 *	se répète indéfiniment
 		 *
 		 */
@@ -114,9 +114,9 @@ static int streamCallback(const void *input, void *output, unsigned long frameCo
 	}
 
 	/*
-	 *	Les sons "loop" et "sound" sont procédés différemment, donc séparément:
+	 *	Les sons "loop" et "sounds" sont procédés différemment, donc séparément:
 	 *	La principale différence étant qu'une seule "loop" peut être lue à la fois,
-	 *	contrairement aux "sound" pour lesquels le nombre des lectures simultanées est
+	 *	contrairement aux "sounds" pour lesquels le nombre des lectures simultanées est
 	 *	limité à `MAX_SOUNDS` (ici 32)
 	 *
 	 */
@@ -248,7 +248,7 @@ void Audio::setLoop(AudioData data)
 }
 
 /*
- *	Méthode 'playSound': vide l'intégralité des "sound" actuels
+ *	Méthode 'playSound': vide l'intégralité des "sounds" actuels
  *	pour n'en jouer qu'un seul (correspondant au paramètre 'data')
  *
  */
@@ -263,7 +263,7 @@ void Audio::playSound(AudioData data)
 }
 
 /*
- *	Les méthodes suivantes servent à la gestion des "sound" et "loop"
+ *	Les méthodes suivantes servent à la gestion des "sounds" et "loop"
  *	ainsi qu'à la gestion de leur volume.
  *
  *	Celles-ci utilisent principalement les méthode de la classe 'AudioData'

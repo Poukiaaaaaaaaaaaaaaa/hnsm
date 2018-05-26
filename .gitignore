@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# L{C}S: Enlever les trucs chiants
+hnsm.exe
+hnsm.lib
+
 # User-specific files
 *.suo
 *.user

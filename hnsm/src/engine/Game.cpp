@@ -135,7 +135,7 @@ void Game::events()
 		gui[i]->events();
 	}
 
-	if (!paused)
+	if (!isPaused)
 	{
 		for (unsigned i = 0; i < game.size(); i++)
 		{
@@ -151,7 +151,7 @@ void Game::process()
 		gui[i]->update();
 	}
 
-	if (!paused)
+	if (!isPaused)
 	{
 		
 		for (unsigned i = 0; i < game.size(); i++)

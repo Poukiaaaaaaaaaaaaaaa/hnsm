@@ -1,3 +1,4 @@
 @echo off
-start bin/hnsm.exe
+cd ./bin/
+start hnsm.exe
 exit

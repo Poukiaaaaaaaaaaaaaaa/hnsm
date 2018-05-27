@@ -21,6 +21,7 @@
 #include "Pair.h"
 #include "UI.h"
 #include "PObject.h"
+#include "FileConfig/FileConfig.h"
 
 #undef _main
 
@@ -119,7 +120,6 @@ public:
 	SDL_Window *w;
 	SDL_Rect dim;
 	SDL_Renderer *r;
-	std::vector<SDL_Texture*> t;
 	std::vector<std::vector<GObject>> layers;
 	std::vector<PObject> physicalEngine;
 	Pair camera;
@@ -148,11 +148,10 @@ public:
 	int get_frame_length() const;
 	void set_frame_rate(unsigned fps);
 
-	Game(std::string title, std::string cfgPath,
-		SDL_WindowFlags wflags, SDL_RendererFlags rflags,
-		std::vector<std::string> &imagePaths,
-		std::vector<std::string> &audioPaths,
-		std::vector<std::string> &musicPaths
+	Game(std::string title,
+		std::string cfgPath,
+		SDL_WindowFlags wflags,
+		SDL_RendererFlags rflags
 	);
 
 	void resize(int w, int h);

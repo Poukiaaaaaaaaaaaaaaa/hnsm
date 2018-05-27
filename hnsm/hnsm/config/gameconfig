@@ -1,3 +1,8 @@
-60
-1920
-1080
+> Ce fichier contient les chemins vers les fichiers
+> contenant les valeurs de configuration pour le jeu
+
+> Fichier pour les valeurs de l'affichage:
+display=display
+
+> Fichier pour les textures
+texture=../res/img/texture list

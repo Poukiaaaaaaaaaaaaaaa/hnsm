@@ -154,9 +154,9 @@ void Game::process()
 	if (!isPaused)
 	{
 		
-		for (unsigned i = 0; i < game.size(); i++)
+		for (unsigned i = 0; i < physicalEngine.size(); i++)
 		{
-			physicalEngine[i].process();	
+			physicalEngine[i].process(physicalEngine);	
 		}
 	
 		for (unsigned i = 0; i < game.size(); i++)

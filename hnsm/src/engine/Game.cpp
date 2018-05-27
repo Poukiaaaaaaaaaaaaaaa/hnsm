@@ -48,7 +48,8 @@ Game::Game(std::string title, std::string cfgPath,
 		Log::toSdlError("error.log", "TTF_Init: ", __FILE__, __LINE__);
 	}
 
-	int wx, wy, ww, wh;
+	float wx, wy;
+	int ww, wh;
 	std::ifstream config(cfgPath);
 	config >> fps_target >> ww >> wh;
 

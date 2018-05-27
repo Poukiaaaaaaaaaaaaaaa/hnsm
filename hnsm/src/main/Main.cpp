@@ -51,7 +51,7 @@ int main(int argc, char* args[])
 
 	Game g(
 		"He Needs Some Milk",
-		"config/gameconfig",
+		"../config/gameconfig",
 		(SDL_WindowFlags)(SDL_WINDOW_SHOWN),
 		(SDL_RendererFlags)(SDL_RENDERER_ACCELERATED),
 		imagePaths,	audioPaths,	musicPaths

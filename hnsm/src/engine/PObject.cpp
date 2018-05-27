@@ -70,6 +70,7 @@ void PObject::process(std::vector<PObject> & PObjects)
 	if (!isStatic) {
 
 		SDL_Rect ndim = linked -> dim;
+		SDL_Rect &dim = linked -> dim;
 		bool xCollision = false, yCollision = false;
 
 		ndim.x += xSpeed;
@@ -90,17 +91,27 @@ void PObject::process(std::vector<PObject> & PObjects)
 			if (!(ndim.x > otherDim.x + otherDim.w && ndim.x + ndim.w < otherDim.x) )
 			{
 				xCollision = true;
+				xSpeed = 0;
 				break;
 			}
 
-			//vetrical hitv hit
+			//vetrical hit
 			if (!(ndim.y > otherDim.y + otherDim.h && ndim.y + ndim.h < otherDim.h))
 			{
 				yCollision = true;
+				ySpeed = 0;
 				break;
 			}
 
-			//eheo
+			if (!xCollision)
+			{
+				dim.x = ndim.x;
+			}
+
+			if (!yCollision)
+			{
+				dim.y = ndim.y;
+			}
 
 		}
 	}

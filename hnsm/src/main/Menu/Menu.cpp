@@ -8,9 +8,7 @@ Menu::Menu(Game& g, MenuData data, ElemType t)
 
 	background = ParentObject({ 0, 0, linked->get_w(), linked->get_h() });
 
-	linked->layers[layerIndex].push_back(GObject(
-		&background, { data.bg }, true
-	));
+	linked->layers[layerIndex].push_back(GObject(&background, { data.bg }, true));
 	bgIndex = linked->layers[layerIndex].size() - 1;
 
 	for (unsigned i = 0; i < data.bd.size(); i++)

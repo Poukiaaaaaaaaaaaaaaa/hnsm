@@ -6,3 +6,6 @@ background=boat.jpg
 > Button
 button_normal=normal.png
 button_hovered=hovered.png
+
+> Arrow
+arrow=arrow.png

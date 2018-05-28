@@ -162,6 +162,8 @@ public:
 	void restoreCamera();
 	//void setCamera(int x, int y);
 
+	void loadLevel(std::string lvlName);
+
 	int get_w() const;
 	int get_h() const;
 	Uint64 get_freq() const;

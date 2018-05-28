@@ -60,7 +60,7 @@ int main(int argc, char* args[])
 	std::vector<ButtonData> button = {
 		ButtonData(IMG_LoadTexture(g.r, texturePaths.getPath("button_normal").c_str()),
 		           IMG_LoadTexture(g.r, texturePaths.getPath("button_hovered").c_str()),
-				   callback, &g, { 0, 0, s, s }),
+				   callback, &g, { 0, 0, s, s })
 	};
 	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI);
 	// tests

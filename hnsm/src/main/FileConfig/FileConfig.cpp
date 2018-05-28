@@ -1,5 +1,7 @@
 #include "FileConfig.h"
 
+static std::string logFileName = "FileConfig.log";
+
 FileConfig::FileConfig(std::string filePath) : m_filePath(filePath)
 {
 	std::ifstream file(filePath);
@@ -14,13 +16,13 @@ FileConfig::FileConfig(std::string filePath) : m_filePath(filePath)
 
 std::string FileConfig::getStr(const std::string label)
 {
-	std::string string;
+	std::string string = "";
 
 	std::ifstream file(m_filePath, std::ios::in);
 
 	if (file.is_open())
 	{
-		while (!file.eof())
+		while (!file.eof() && string == "")
 		{
 			std::string line;
 
@@ -40,12 +42,21 @@ std::string FileConfig::getStr(const std::string label)
 			if (label == line.substr(0, eqPos))
 			{
 				string = line.substr(eqPos + 1);
-				break;
 			}
 		}
 	}
 
 	file.close();
+
+	if (string == "")
+	{
+		std::ofstream logFile(logFileName, std::ios::app);
+
+		logFile << "Une erreur est survenue lors de la recherche dans le fichier: " << m_filePath << std::endl;
+		logFile << "La recherche pour le label " << label << " n'a rien donné." << std::endl << std::endl;
+
+		logFile.close();
+	}
 
 	return string;
 }

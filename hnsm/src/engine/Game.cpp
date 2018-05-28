@@ -107,6 +107,11 @@ void Game::restoreCamera()
 	camera.x = camera.y = 0;
 }
 
+void Game::loadLevel(std::string lvlName)
+{
+	
+}
+
 void Game::events()
 {
 	while (SDL_PollEvent(&e))

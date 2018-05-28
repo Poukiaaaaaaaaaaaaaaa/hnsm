@@ -18,6 +18,13 @@ class Player : public ParentObject
 	unsigned layerIndexB;
 
 public:
+	struct
+	{
+		float maxSpeed;
+		float speed;
+		float acc;
+	} walk;
+
 	Player(Game * g, std::vector<SDL_Texture*>& sprites, SDL_Rect&);
 	~Player();
 

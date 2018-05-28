@@ -2,66 +2,43 @@
 
 float gravityAcc = 1.5;
 
-PObject::PObject(float vx, float vy, bool g) : xSpeed(vx), ySpeed(vy), gravity(g)
+PObject::PObject(PObject* object, vect s, bool g, void(*cb)(SDL_Rect * dim, vect* s) = nullptr) : gravity(g), speed(s), callback(cb)
 {
-	if (std::isnan(xSpeed))
-	{
-	}
-}
-
-PObject::PObject(vect s, bool g) : gravity(g)
-{
-	xSpeed = s.x;
-	ySpeed = s.y;
-}
-
-void PObject::set_speed(float vx, float vy)
-{
-	xSpeed = vx;
-	ySpeed = vy;
 }
 
 void PObject::set_speed(vect s)
 {
-	xSpeed = s.x;
-	ySpeed = s.y;
+	speed = s;
 }
 
 void PObject::set_xSpeed(float vx)
 {
-	xSpeed = vx;
+	speed.x = vx;
 }
 
 void PObject::set_ySpeed(float vy)
 {
-	ySpeed = vy;
+	speed.y = vy;
 }
 
 vect PObject::get_speed()
 {
-	return { xSpeed,ySpeed };
-}
-
-void PObject::add_speed(float vx, float vy)
-{
-	xSpeed += vx;
-	ySpeed += vy;
+	return speed;
 }
 
 void PObject::add_speed(vect s)
 {
-	xSpeed += s.x;
-	ySpeed += s.y;
+	speed = s;
 }
 
 void PObject::add_xSpeed(float vx)
 {
-	xSpeed += vx;
+	speed.x += vx;
 }
 
 void PObject::add_ySpeed(float vy)
 {
-	xSpeed += vy;
+	speed.y += vy;
 }
 
 void PObject::process(std::vector<PObject> & PObjects) 
@@ -73,12 +50,17 @@ void PObject::process(std::vector<PObject> & PObjects)
 		SDL_Rect &dim = linked -> dim;
 		bool xCollision = false, yCollision = false;
 
-		ndim.x += xSpeed;
-		ndim.y += ySpeed;
+		if (callback)
+		{
+			callback(&ndim, &speed);
+		}
+
+		ndim.x += speed.x;
+		ndim.y += speed.y;
 
 		if (gravity)
 		{
-			ySpeed -= gravityAcc;
+			speed.y -= gravityAcc;
 		}
 
 		SDL_Rect otherDim;
@@ -91,7 +73,7 @@ void PObject::process(std::vector<PObject> & PObjects)
 			if (!(ndim.x > otherDim.x + otherDim.w && ndim.x + ndim.w < otherDim.x) )
 			{
 				xCollision = true;
-				xSpeed = 0;
+				speed.x = 0;
 				break;
 			}
 
@@ -99,7 +81,7 @@ void PObject::process(std::vector<PObject> & PObjects)
 			if (!(ndim.y > otherDim.y + otherDim.h && ndim.y + ndim.h < otherDim.h))
 			{
 				yCollision = true;
-				ySpeed = 0;
+				speed.y = 0;
 				break;
 			}
 

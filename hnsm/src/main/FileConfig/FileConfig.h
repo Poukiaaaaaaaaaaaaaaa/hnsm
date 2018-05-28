@@ -16,11 +16,6 @@ public:
 
 	explicit operator bool();
 
-	//static bool init(std::string configPath);
-
 private:
 	std::string m_filePath;
-
-	//static std::string _configPath;
-
 };

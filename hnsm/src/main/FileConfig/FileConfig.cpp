@@ -1,24 +1,5 @@
 #include "FileConfig.h"
 
-//std::string FileConfig::_configPath = "";
-//
-//bool FileConfig::init(std::string configPath)
-//{
-//	ifstream file(configPath, std::ios:in);
-//
-//	if (file.good())
-//	{
-//		_configPath = configPath;
-//		file.close();
-//		return true;
-//	}
-//	else
-//	{
-//		file.close();
-//		return false;
-//	}
-//}
-
 FileConfig::FileConfig(std::string filePath) : m_filePath(filePath)
 {
 	std::ifstream file(filePath);

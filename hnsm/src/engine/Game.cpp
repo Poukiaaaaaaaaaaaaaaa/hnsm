@@ -80,15 +80,6 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 		Log::toSdlError("error.log", "SDL_CreateRenderer: ", __FILE__, __LINE__);
 	}
 
-	//for (unsigned i = 0; i < imagePaths.size(); i++)
-	//{
-	//	t.push_back(IMG_LoadTexture(r, imagePaths[i].c_str()));
-	//	if (t[i] == nullptr)
-	//	{
-	//		Log::toSdlError("error.log", "IMG_LoadTexture: ", __FILE__, __LINE__);
-	//	}
-	//}
-
 	////load the audio data
 	//for (unsigned i = 0; i < audioPaths.size(); i++)
 	//{

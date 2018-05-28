@@ -161,7 +161,7 @@ public:
 	void restoreCamera();
 	//void setCamera(int x, int y);
 
-	void loadLevel(std::string lvlName);
+	void loadLevel(std::string lvlPath);
 
 	int get_w() const;
 	int get_h() const;

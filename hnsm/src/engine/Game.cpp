@@ -80,16 +80,7 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 		Log::toSdlError("error.log", "SDL_CreateRenderer: ", __FILE__, __LINE__);
 	}
 
-	////load the audio data
-	//for (unsigned i = 0; i < audioPaths.size(); i++)
-	//{
-	//	sound.push_back(AudioData(audioPaths[i].c_str()));
-	//}
-
-	//for (unsigned i = 0; i < musicPaths.size(); i++)
-	//{
-	//	loop.push_back(AudioData(musicPaths[i].c_str()));
-	//}
+	KU
 
 	camera.x = camera.y = 0;
 
@@ -107,9 +98,32 @@ void Game::restoreCamera()
 	camera.x = camera.y = 0;
 }
 
-void Game::loadLevel(std::string lvlName)
+void Game::loadLevel(std::string lvlPath)
 {
-	
+	std::ifstream lvlFile(lvlPath, std::ios::in);
+	std::string line = "";
+	int tmW = 1, tmH = 1;
+
+	getline(lvlFile, line, '\n');
+
+	size_t xPos = line.find('x');
+
+	if (xPos == std::string::npos)
+	{
+		Log::toFile("loadLevel.error", "Une erreur est survenue lors du chargement du niveau: " + lvlPath);
+	}
+	else
+	{
+		try
+		{
+			tmW = std::stoi(line.substr(0, xPos));
+			tmH = std::stoi(line.substr(xPos + 1));
+		}
+		catch (std::invalid_argument)
+		{
+			Log::toFile("loadLevel.error", "Une erreur est survenue lors de la lecture des dimensions du niveau: " + lvlPath);
+		}
+	}
 }
 
 void Game::events()

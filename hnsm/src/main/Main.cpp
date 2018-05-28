@@ -70,7 +70,7 @@ int main(int argc, char* args[])
 	/*
 	 * FileConfig level(cfg.getPath("levels");
 	 * 
-	 * g.loadLevel(level.getPath("test");
+	 * g.loadLevel(level.getPath("test"));
 	 *
 	 *
 	 */

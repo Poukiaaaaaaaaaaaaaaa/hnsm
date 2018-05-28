@@ -7,8 +7,10 @@
 #include <SDL2\SDL.h>
 
 //engine headers
-#include "Game.h"
 #include "ParentObject.h"
+#include "PObject.h"
+
+class Game;
 
 class Player : public ParentObject
 {

@@ -37,4 +37,3 @@ public:
 	void update();
 	void events();
 };
-

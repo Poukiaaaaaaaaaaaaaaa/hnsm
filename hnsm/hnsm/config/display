@@ -1,0 +1,8 @@
+> This file stores values for game window
+
+> Framerate in frames per second
+framerate=60
+
+> Definition de la fenetre en pixel
+width=800
+height=600

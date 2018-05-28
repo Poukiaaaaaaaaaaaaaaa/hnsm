@@ -4,6 +4,8 @@
 #include <functional>
 #include <cmath>
 
+#include <fstream>
+
 //SDL headers
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
@@ -25,19 +27,11 @@
 #include "Menu\Menu.h"
 #include "RollMenu\RollMenu.h"
 
+#include "FileConfig/FileConfig.h"
+
 #undef _main
 
-std::vector<std::string> imagePaths = {
-	"../res/img/normal.png",
-	"../res/img/hovered.png",
-	"../res/img/boat.jpg"
-};
-
-std::vector<std::string> audioPaths = {
-};
-
-std::vector<std::string> musicPaths = {
-};
+std::string configPath = "../config/gameconfig";
 
 void callback(void* data)
 {
@@ -51,19 +45,35 @@ int main(int argc, char* args[])
 
 	Game g(
 		"He Needs Some Milk",
-		"../config/gameconfig",
+		configPath,
 		(SDL_WindowFlags)(SDL_WINDOW_SHOWN),
-		(SDL_RendererFlags)(SDL_RENDERER_ACCELERATED),
-		imagePaths,	audioPaths,	musicPaths
+		(SDL_RendererFlags)(SDL_RENDERER_ACCELERATED)
 	);
 
 	// tests (enlever si besoin)
-	int s = g.get_w() / 15;
+	FileConfig cfg(configPath);
+
+	FileConfig texturePaths(cfg.getStr("texture"));
+
+	int s = g.get_w() / 10;
+
 	std::vector<ButtonData> button = {
-		ButtonData(g.t[1], g.t[0], callback, &g, { 0, 0, s, s })
+		ButtonData(IMG_LoadTexture(g.r, texturePaths.getPath("button_hovered").c_str()),
+		           IMG_LoadTexture(g.r, texturePaths.getPath("button_normal").c_str()),
+				   callback, &g, { 0, 0, s, s })
 	};
-	Menu rm(g, MenuData(g.t[2], button), GUI);
+	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI);
 	// tests
+
+	// Test second !
+	// L'idée, c'est d'avoir ceci:
+	/*
+	 * FileConfig level(cfg.getPath("levels");
+	 * 
+	 * g.loadLevel(level.getPath("test");
+	 *
+	 *
+	 */
 
 	while (!g.shouldQuit)
 	{

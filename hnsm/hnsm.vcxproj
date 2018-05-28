@@ -284,6 +284,7 @@
     <ClCompile Include="src\engine\Force.cpp" />
     <ClCompile Include="src\engine\ParentObject.cpp" />
     <ClCompile Include="src\engine\PObject.cpp" />
+    <ClCompile Include="src\main\FileConfig\FileConfig.cpp" />
     <ClCompile Include="src\main\RollMenu\RollMenu.cpp" />
     <ClCompile Include="src\engine\UI.cpp" />
     <ClCompile Include="src\engine\Level.cpp" />

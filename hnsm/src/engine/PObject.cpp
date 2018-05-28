@@ -2,7 +2,7 @@
 
 float gravityAcc = 1.5;
 
-PObject::PObject(PObject* object, vect s, bool g, void(*cb)(SDL_Rect * dim, vect* s) = nullptr) : gravity(g), speed(s), callback(cb)
+PObject::PObject(PObject* object, vect s, bool g, void(*cb)(SDL_Rect * dim, vect* s)) : gravity(g), speed(s), callback(cb)
 {
 }
 

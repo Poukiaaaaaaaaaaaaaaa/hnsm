@@ -35,13 +35,8 @@ void Game::set_frame_rate(unsigned fps)
 	tick_target = (fps > 0) ? freq / fps_target : 0;
 }
 
-Game::Game(std::string title, std::string cfgPath,
-	SDL_WindowFlags wflags, SDL_RendererFlags rflags,
-	std::vector<std::string> &imagePaths,
-	std::vector<std::string> &audioPaths,
-	std::vector<std::string> &musicPaths
-) : title(title), freq(SDL_GetPerformanceFrequency()),
-	wflags(wflags), rflags(rflags)
+Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags)
+	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags), player()
 {
 	if (TTF_Init())
 	{
@@ -50,11 +45,15 @@ Game::Game(std::string title, std::string cfgPath,
 
 	float wx, wy;
 	int ww, wh;
-	std::ifstream config(cfgPath);
-	config >> fps_target >> ww >> wh;
+	FileConfig config(cfgPath);
+
+	FileConfig dispCfg(config.getPath("display"));
+
+	fps_target = dispCfg.getVal("framerate");
+	ww = dispCfg.getVal("width");
+	wh = dispCfg.getVal("height");
 
 	tick_target = fps_target ? freq / fps_target : 0;
-	config.close();
 
 	SDL_DisplayMode dm;
 	SDL_GetCurrentDisplayMode(0, &dm);
@@ -62,10 +61,6 @@ Game::Game(std::string title, std::string cfgPath,
 	if (!ww || !wh)
 	{
 		ww = dm.w; wh = dm.h;
-
-		std::ofstream writeCfg(cfgPath);
-		writeCfg << fps_target << '\n' << ww << "\n" << wh << "\n";
-		writeCfg.close();
 	}
 
 	wx = dm.w / 2 - ww / 2;
@@ -85,25 +80,16 @@ Game::Game(std::string title, std::string cfgPath,
 		Log::toSdlError("error.log", "SDL_CreateRenderer: ", __FILE__, __LINE__);
 	}
 
-	for (unsigned i = 0; i < imagePaths.size(); i++)
-	{
-		t.push_back(IMG_LoadTexture(r, imagePaths[i].c_str()));
-		if (t[i] == nullptr)
-		{
-			Log::toSdlError("error.log", "IMG_LoadTexture: ", __FILE__, __LINE__);
-		}
-	}
+	////load the audio data
+	//for (unsigned i = 0; i < audioPaths.size(); i++)
+	//{
+	//	sound.push_back(AudioData(audioPaths[i].c_str()));
+	//}
 
-	//load the audio data
-	for (unsigned i = 0; i < audioPaths.size(); i++)
-	{
-		sound.push_back(AudioData(audioPaths[i].c_str()));
-	}
-
-	for (unsigned i = 0; i < musicPaths.size(); i++)
-	{
-		loop.push_back(AudioData(musicPaths[i].c_str()));
-	}
+	//for (unsigned i = 0; i < musicPaths.size(); i++)
+	//{
+	//	loop.push_back(AudioData(musicPaths[i].c_str()));
+	//}
 
 	camera.x = camera.y = 0;
 

@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Game.h"
 
 Player::Player(Game * g, std::vector<SDL_Texture*>& sprites, SDL_Rect& dimn)
 	: linked(g)

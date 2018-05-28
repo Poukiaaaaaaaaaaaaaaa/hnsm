@@ -97,10 +97,11 @@ public:
 	/*
 	 *	'gui': vecteur contenant les objets de l'interface utilisateur (voir UI.h)
 	 *	'game': vecteur contenant les objets du jeu (voir UI.h)
-	 *
+	 *	'player' : le personnage controllé par le joueur (voir Player.h)
 	 */
 	std::vector<UI*> gui;
 	std::vector<UI*> game;
+	Player player;
 
 	/*
 	 *	Membres utiles à la gestion des graphismes:

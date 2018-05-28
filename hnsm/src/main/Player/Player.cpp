@@ -26,3 +26,8 @@ void Player::update()
 {
 
 }
+
+void playerWalkCallback(SDL_Rect * dim, vect * s ) 
+{
+
+}

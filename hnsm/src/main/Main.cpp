@@ -65,6 +65,16 @@ int main(int argc, char* args[])
 	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI);
 	// tests
 
+	// Test second !
+	// L'idée, c'est d'avoir ceci:
+	/*
+	 * FileConfig level(cfg.getPath("levels");
+	 * 
+	 * g.loadLevel(level.getPath("test");
+	 *
+	 *
+	 */
+
 	while (!g.shouldQuit)
 	{
 		g.tick_start();

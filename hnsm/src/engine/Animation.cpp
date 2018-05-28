@@ -28,7 +28,7 @@ Animation::Animation(SDL_Texture *tex, unsigned clipCount, SDL_Rect clipSize, Ui
 		 */
 		for (unsigned i = 0; i < clipc; i++)
 		{
-			clips.push_back({ (int)(i % clipsPerLine) * clipSize.w, (int)(i / clipsPerLine) * clipSize.h, clipSize.w, clipSize.h });
+			clips.push_back({ (float)(i % clipsPerLine) * clipSize.w, (float)(i / clipsPerLine) * clipSize.h, clipSize.w, clipSize.h });
 		}
 
 		if (clipc)

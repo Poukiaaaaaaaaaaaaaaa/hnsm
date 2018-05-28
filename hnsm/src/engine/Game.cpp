@@ -43,7 +43,8 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 		Log::toSdlError("error.log", "TTF_Init: ", __FILE__, __LINE__);
 	}
 
-	int wx, wy, ww, wh;
+	float wx, wy;
+	int ww, wh;
 	FileConfig config(cfgPath);
 
 	FileConfig dispCfg(config.getPath("display"));
@@ -149,9 +150,9 @@ void Game::process()
 	if (!isPaused)
 	{
 		
-		for (unsigned i = 0; i < game.size(); i++)
+		for (unsigned i = 0; i < physicalEngine.size(); i++)
 		{
-			physicalEngine[i].process();	
+			physicalEngine[i].process(physicalEngine);	
 		}
 	
 		for (unsigned i = 0; i < game.size(); i++)

@@ -12,7 +12,7 @@ enum hitboxType
 	RECT,
 };
 
-struct speed
+struct vect
 {
 	float x; float y;
 };
@@ -26,16 +26,19 @@ private :
 	bool gravity;
 
 public:	
-	void process();
+	ParentObject * linked;
+
+
+	void process(std::vector<PObject> & PObjects);
 	void set_speed(float vx, float vy);
-	void set_speed(speed s);
+	void set_speed(vect s);
 	void set_xSpeed(float vx);
 	void set_ySpeed(float vy);
 	void add_speed(float vx, float vy);
-	void add_speed(speed s);
+	void add_speed(vect s);
 	void add_xSpeed(float vx);
 	void add_ySpeed(float vy);
-	speed get_speed();
+	vect get_speed();
 	PObject(float vx = 0, float vy = 0, bool g = true);
-	PObject(speed s, bool g = true);
+	PObject(vect s, bool g = true);
 };

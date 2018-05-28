@@ -8,4 +8,3 @@ public:
 	Force();
 	~Force();
 };
-

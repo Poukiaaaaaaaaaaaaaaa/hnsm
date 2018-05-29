@@ -68,28 +68,30 @@ void PObject::process(std::vector<PObject> & PObjects)
 
 		for (unsigned i = 0; i < PObjects.size(); i++)
 		{
-			otherDim = PObjects[i].linked->dim;
+			if (!(&PObjects[i] == this)) {
+				otherDim = PObjects[i].linked->dim;
 
-			//horitonzal hit
-			if (!(ndim.x > otherDim.x + otherDim.w && ndim.x + ndim.w < otherDim.x) )
-			{
-				xCollision = true;
-				speed.x = 0;
-				break;
-			}
+				//horitonzal hit
+				if (!(ndim.x > otherDim.x + otherDim.w && ndim.x + ndim.w < otherDim.x))
+				{
+					Log::toFile("debug.txt", "collision");
+					xCollision = true;
+					speed.x = 0;
+					break;
+				}
 
-			//vetrical hit
-			if (!(ndim.y > otherDim.y + otherDim.h && ndim.y + ndim.h < otherDim.h))
-			{
-				yCollision = true;
-				speed.y = 0;
-				break;
+				//vetrical hit
+				if (!(ndim.y > otherDim.y + otherDim.h && ndim.y + ndim.h < otherDim.y))
+				{
+					yCollision = true;
+					speed.y = 0;
+					break;
+				}
+
 			}
 
 
 		}
-
-		Log::toFile("debug.txt", std::to_string(xCollision));
 
 		if (!xCollision)
 		{

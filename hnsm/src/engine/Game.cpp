@@ -81,7 +81,7 @@ void Game::set_frame_rate(unsigned fps)
  *	etc. (chargement via un fichier de configuration crée par Amayun).
  *
  */
-Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags)
+Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags, FileConfig texturePath)
 	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags)
 {
 	/*
@@ -96,7 +96,7 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 		Log::toSdlError("error.log", "TTF_Init: ", __FILE__, __LINE__);
 	}
 
-	float wx, wy;
+	int wx, wy;
 	int ww, wh;
 	FileConfig config(cfgPath);
 
@@ -146,6 +146,8 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 	 */
 	camera.x = camera.y = 0;
 
+	player = new Player(this, { IMG_LoadTexture(r, texturePath.getPath("player").c_str())}, { 1.0, 0.0, 150, 300 });
+
 	a.startStream();
 }
 
@@ -176,14 +178,19 @@ void Game::restoreCamera()
 	camera.x = camera.y = 0;
 }
 
+void Game::loadLevel(std::string lvlName)
+{
+	
+}
+
 /*
- *	Méthode 'events':
- *
- *	Cette méthode est appelée à chaque image. Son but est d'appeler la
- *	méthode 'events' de chaque objet du jeu, permettant la gestion des
- *	entrées du joueur (clavier, souris, etc).
- *
- */
+*	Méthode 'events':
+*
+*	Cette méthode est appelée à chaque image. Son but est d'appeler la
+*	méthode 'events' de chaque objet du jeu, permettant la gestion des
+*	entrées du joueur (clavier, souris, etc).
+*
+*/
 void Game::events()
 {
 	while (SDL_PollEvent(&e))
@@ -259,7 +266,7 @@ void Game::process()
 void Game::render()
 {
 	SDL_RenderClear(r);
-	for (unsigned i = 0; i < layers.size(); i++)
+	for (unsigned i = 0; i < 10; i++)
 	{
 		for (unsigned j = 0; j < layers[i].size(); j++)
 		{

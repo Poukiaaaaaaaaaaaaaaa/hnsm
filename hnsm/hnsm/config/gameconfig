@@ -5,7 +5,7 @@
 display=display
 
 > Fichier pour les textures
-texture=../res/img/texture list
+texture=../res/img/texture.list
 
 > Fichier contenant la liste des niveaux
 levels=../res/levels/levels.list

@@ -8,8 +8,8 @@ struct ButtonData
 	SDL_Texture * not_hovered;
 	SDL_Texture * hovered;
 	void(*callback)(void*);
-	void * cbData;  SDL_Rect dim;
+	void * cbData;  floating_rect dim;
 
-	ButtonData(SDL_Texture * n, SDL_Texture * h, void(*cb)(void*), void * cbData, SDL_Rect d);
+	ButtonData(SDL_Texture * n, SDL_Texture * h, void(*cb)(void*), void * cbData, floating_rect d);
 	~ButtonData();
 };

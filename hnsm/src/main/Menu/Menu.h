@@ -28,7 +28,7 @@ class Menu : public UI
 	bool isOpened;
 
 public:
-	Menu(Game& g, MenuData data, ElemType t);
+	Menu(Game& g, MenuData data, ElemType t, unsigned layer);
 	~Menu();
 
 	void open();

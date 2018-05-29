@@ -36,6 +36,7 @@ GObject::GObject(ParentObject * lnk, std::vector<SDL_Texture*> animations, bool 
 	 *
 	 */
 	SDL_Rect temp = linked->get_dim();
+	floating_rect temp = linked->get_dim();
 	if (!temp.w || !temp.h)
 	{
 		SDL_QueryTexture(textures[0].t, NULL, NULL, &temp.w, &temp.h);
@@ -61,6 +62,7 @@ GObject::GObject(ParentObject * lnk, SDL_Renderer *r, std::string txt, SDL_Color
 
 	if (TxtTag == SHADED)
 		s = TTF_RenderText_Shaded(f, text.c_str(), c, bg);
+	textures.push_back(Animation(SDL_CreateTextureFromSurface(r, s), 0u, (SDL_Rect)linked->get_dim(), 0));
 
 	/*
 	 *	La création d'un objet graphique de type texte consiste en
@@ -77,6 +79,7 @@ GObject::GObject(ParentObject * lnk, SDL_Renderer *r, std::string txt, SDL_Color
 	 *
 	 */
 	SDL_Rect temp = linked->get_dim();
+	floating_rect temp = linked->get_dim();
 	if (!temp.w || !temp.h)
 	{
 		SDL_QueryTexture(textures[0].t, NULL, NULL, &temp.w, &temp.h);
@@ -235,7 +238,7 @@ void GObject::set_text(SDL_Renderer *r, std::string txt)
 	textures[0].t = SDL_CreateTextureFromSurface(r, s);
 	SDL_QueryTexture(textures[0].t, NULL, NULL, &w, &h);
 	SDL_Rect temp = linked->get_dim();
-	linked->set_dim({ temp.x, temp.y, w, h });
+	linked->set_dim({ (float)temp.x, (float)temp.y, w, h });
 
 	SDL_FreeSurface(s);
 }
@@ -287,7 +290,7 @@ void GObject::draw(SDL_Renderer *r, Pair cam)
 		SDL_Rect finalDim;
 		if (!is_static)
 		{
-			SDL_Rect tempDim = linked->get_dim();
+			SDL_Rect tempDim = (SDL_Rect)linked->get_dim();
 
 			finalDim = {
 				tempDim.x - cam.x,
@@ -297,7 +300,7 @@ void GObject::draw(SDL_Renderer *r, Pair cam)
 		}
 		else
 		{
-			finalDim = linked->get_dim();
+			finalDim = (SDL_Rect)linked->get_dim();
 		}
 
 		/*

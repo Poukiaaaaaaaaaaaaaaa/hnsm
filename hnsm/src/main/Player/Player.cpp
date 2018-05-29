@@ -13,7 +13,7 @@ Player::Player(Game * g, std::vector<SDL_Texture*> sprites, floating_rect dimn)
 	));
 
 	linked->physicalEngine.push_back(PObject(
-		this, {0,0}
+		this, {10,-10}
 	));
 
 	layerIndexB = linked->layers[layerIndexA].size() - 1;

@@ -155,8 +155,8 @@ public:
 	Game(std::string title,
 		std::string cfgPath,
 		SDL_WindowFlags wflags,
-		SDL_RendererFlags rflags,
-		FileConfig texturePath
+		SDL_RendererFlags rflags
+		/*, FileConfig texturePath*/
 	);
 
 	void resize(int w, int h);

@@ -43,7 +43,7 @@ int main(int argc, char* args[])
 	 *
 	 */
 	Game g(
-		"He Needs Some Milk!",
+		"He Needs Some Milk",
 		configPath,
 		SDL_WINDOW_SHOWN,
 		SDL_RENDERER_ACCELERATED

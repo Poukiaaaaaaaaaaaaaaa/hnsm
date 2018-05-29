@@ -1,6 +1,6 @@
 #include "Block.h"
 
-Block::Block(SDL_Rect dim, SDL_Texture* texture)
+Block::Block(floating_rect dim, SDL_Texture* texture)
 	: ptn(dim), gameObjet(GObject(&ptn, { texture }, false))
 {
 }

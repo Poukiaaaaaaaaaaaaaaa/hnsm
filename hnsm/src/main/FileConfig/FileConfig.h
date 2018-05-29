@@ -9,6 +9,7 @@
 class FileConfig
 {
 public:
+	FileConfig();
 	FileConfig(std::string filePath);
 	std::string getStr(const std::string label);
 	std::string getPath(const std::string label);

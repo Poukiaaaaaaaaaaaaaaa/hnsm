@@ -81,8 +81,9 @@ void Game::set_frame_rate(unsigned fps)
  *	etc. (chargement via un fichier de configuration crée par Amayun).
  *
  */
-Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags, FileConfig texturePath)
-	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags)
+Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags
+/*, FileConfig texturePath */)
+	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags), config(cfgPath)
 {
 	/*
 	 *	Initialisation du complément de SDL permettant la
@@ -145,7 +146,7 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 	 */
 	camera.x = camera.y = 0;
 
-	player = new Player(this, { IMG_LoadTexture(r, texturePath.getPath("player").c_str())}, { 1.0, 0.0, 150, 300 });
+	/*player = new Player(this, { IMG_LoadTexture(r, texturePath.getPath("player").c_str())}, { 1.0, 0.0, 150, 300 });*/
 
 	a.startStream();
 }
@@ -217,7 +218,7 @@ void Game::loadLevel(std::string lvlPath)
 		{
 			getline(strLine, blockLabel, '|');
 
-			Block block({ m * 10, n * 10, (m + 1) * 10, (n + 1) * 10 },
+			Block block({ (float)(m * 10), (float)(n * 10), (m + 1) * 10, (n + 1) * 10 },
 				        IMG_LoadTexture(r, blockPath.getPath(blockLabel).c_str())
 			            );
 
@@ -227,7 +228,7 @@ void Game::loadLevel(std::string lvlPath)
 		}
 	}
 
-	this->layers.push_back(blocks);
+	this->layers[0] = blocks;
 	lvlFile.close();
 }
 

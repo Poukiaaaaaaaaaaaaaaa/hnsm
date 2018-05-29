@@ -13,7 +13,7 @@ public:
 
 
 public:
-	Block(SDL_Rect dim, SDL_Texture* texture);
+	Block(floating_rect dim, SDL_Texture* texture);
 	~Block();
 
 	GObject getGObject() const;

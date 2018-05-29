@@ -35,7 +35,6 @@ GObject::GObject(ParentObject * lnk, std::vector<SDL_Texture*> animations, bool 
 	 *	héritant de la classe 'ParentObject' (voir ParentObject.h).
 	 *
 	 */
-	SDL_Rect temp = linked->get_dim();
 	floating_rect temp = linked->get_dim();
 	if (!temp.w || !temp.h)
 	{
@@ -78,7 +77,6 @@ GObject::GObject(ParentObject * lnk, SDL_Renderer *r, std::string txt, SDL_Color
 	 *	texture si aucune taille n'est fournie par le 'ParentObject'.
 	 *
 	 */
-	SDL_Rect temp = linked->get_dim();
 	floating_rect temp = linked->get_dim();
 	if (!temp.w || !temp.h)
 	{

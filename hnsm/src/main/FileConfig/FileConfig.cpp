@@ -2,6 +2,11 @@
 
 static std::string logFileName = "FileConfig.log";
 
+FileConfig::FileConfig()
+{
+
+}
+
 FileConfig::FileConfig(std::string filePath) : m_filePath(filePath)
 {
 	std::ifstream file(filePath);

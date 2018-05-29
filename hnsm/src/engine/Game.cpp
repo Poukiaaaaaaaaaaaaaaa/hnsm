@@ -1,19 +1,19 @@
 #include "Game.h"
 
 /*
- *	Les deux méthodes suivantes permettent la gestion de la
- *	fréquence d'actualisation du moteur.
+ *	Les deux mÃ©thodes suivantes permettent la gestion de la
+ *	frÃ©quence d'actualisation du moteur.
  *
- *	'tick_start': cette méthode est appelée au début de chaque image.
- *	Elle permet de récupérer puis de stocker la valeur de temps, en ticks
- *	processeur, au moment où elle a été appelée. Elle permet également de
- *	récupérer les coordonnées de la souris dans des membres de l'objet
+ *	'tick_start': cette mÃ©thode est appelÃ©e au dÃ©but de chaque image.
+ *	Elle permet de rÃ©cupÃ©rer puis de stocker la valeur de temps, en ticks
+ *	processeur, au moment oÃ¹ elle a Ã©tÃ© appelÃ©e. Elle permet Ã©galement de
+ *	rÃ©cupÃ©rer les coordonnÃ©es de la souris dans des membres de l'objet
  *	global via la fonction 'SDL_GetMouseState'
  *
- *	'tick_end': cette méthode est appelée à la fin de chaque image. Elle
- *	calcule le temps écoulé entre son appel et celui de 'tick_start' puis
- *	interromp le programme pendant un temps calculé à partir du temps écoulé.
- *	Ceci permettant aux image de s'actualiser à une fréquence stable.
+ *	'tick_end': cette mÃ©thode est appelÃ©e Ã  la fin de chaque image. Elle
+ *	calcule le temps Ã©coulÃ© entre son appel et celui de 'tick_start' puis
+ *	interromp le programme pendant un temps calculÃ© Ã  partir du temps Ã©coulÃ©.
+ *	Ceci permettant aux image de s'actualiser Ã  une frÃ©quence stable.
  *
  */
 void Game::tick_start()
@@ -36,10 +36,10 @@ void Game::tick_end()
 }
 
 /*
- *	Méthode 'get_current_framerate':
+ *	MÃ©thode 'get_current_framerate':
  *
- *	Cette méthode renvoie le nombre actuel d'image par secondes. Calculé
- *	à partir du temps écoulé à la dernière image.
+ *	Cette mÃ©thode renvoie le nombre actuel d'image par secondes. CalculÃ©
+ *	Ã  partir du temps Ã©coulÃ© Ã  la derniÃ¨re image.
  *
  */
 int Game::get_current_framerate() const
@@ -48,9 +48,9 @@ int Game::get_current_framerate() const
 }
 
 /*
- *	Méthode 'get_frame_length':
+ *	MÃ©thode 'get_frame_length':
  *
- *	Renvoie la durée théorique d'une image en milisecondes.
+ *	Renvoie la durÃ©e thÃ©orique d'une image en milisecondes.
  *
  */
 int Game::get_frame_length() const
@@ -59,10 +59,10 @@ int Game::get_frame_length() const
 }
 
 /*
- *	Méthode 'set_frame_rate':
+ *	MÃ©thode 'set_frame_rate':
  *
- *	Cette méthode permet de redéfinir le nombre d'images par secondes.
- *	Ainsi modifiant directement la fréquence d'actualisation.
+ *	Cette mÃ©thode permet de redÃ©finir le nombre d'images par secondes.
+ *	Ainsi modifiant directement la frÃ©quence d'actualisation.
  *
  */
 void Game::set_frame_rate(unsigned fps)
@@ -75,19 +75,19 @@ void Game::set_frame_rate(unsigned fps)
  *	Constructeur:
  *
  *	Le constructeur de la classe 'Game' permet l'initialisation de
- *	la fenêtre ainsi que de outil de rendu. Certains paramètres du jeu sont
- *	alors directement définis à l'intérieur du fichier de chemin 'cfgPath',
- *	contenant des propriétés telles que les largeur et hauteur de la fenêtre,
- *	etc. (chargement via un fichier de configuration crée par Amayun).
+ *	la fenÃªtre ainsi que de outil de rendu. Certains paramÃ¨tres du jeu sont
+ *	alors directement dÃ©finis Ã  l'intÃ©rieur du fichier de chemin 'cfgPath',
+ *	contenant des propriÃ©tÃ©s telles que les largeur et hauteur de la fenÃªtre,
+ *	etc. (chargement via un fichier de configuration crÃ©e par Amayun).
  *
  */
 Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags, FileConfig texturePath)
 	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags)
 {
 	/*
-	 *	Initialisation du complément de SDL permettant la
+	 *	Initialisation du complÃ©ment de SDL permettant la
 	 *	lecture de fichiers .ttf (True Type Font) et .otf
-	 *	(Open Type Font), permettant entre autre la création
+	 *	(Open Type Font), permettant entre autre la crÃ©ation
 	 *	d'objets graphiques type texte.
 	 *
 	 */
@@ -98,7 +98,6 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 
 	int wx, wy;
 	int ww, wh;
-	FileConfig config(cfgPath);
 
 	FileConfig dispCfg(config.getPath("display"));
 
@@ -122,7 +121,7 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 	dim = { wx, wy, ww, wh };
 
 	/*
-	 *	Initialisation de la fenêtre via 'SDL_CreateWindow', ainsi
+	 *	Initialisation de la fenÃªtre via 'SDL_CreateWindow', ainsi
 	 *	que de sont outil de rendu (ici r) via 'SDL_CreateRenderer'.
 	 *
 	 */
@@ -139,9 +138,9 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 	}
 
 	/*
-	 *	Initialisation de la caméra, soit un objet théorique
+	 *	Initialisation de la camÃ©ra, soit un objet thÃ©orique
 	 *	sur lequel se base l'affichage des objets graphiques,
-	 *	puis démarrage du flux audio principal.
+	 *	puis dÃ©marrage du flux audio principal.
 	 *
 	 */
 	camera.x = camera.y = 0;
@@ -152,12 +151,12 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 }
 
 /*
- *	Méthode 'moveCamera':
+ *	MÃ©thode 'moveCamera':
  *
- *	Déplace la caméra le long des axes x et y.
+ *	DÃ©place la camÃ©ra le long des axes x et y.
  *
- *	Note: La soustraction de la coordonnée en y vient du fait que
- *	le sens positif d'incrémentation des coordonnée en y se fait de
+ *	Note: La soustraction de la coordonnÃ©e en y vient du fait que
+ *	le sens positif d'incrÃ©mentation des coordonnÃ©e en y se fait de
  *	haut en bas (et non de bas en haut).
  *
  */
@@ -168,9 +167,9 @@ void Game::moveCamera(int xShift, int yShift)
 }
 
 /*
- *	Méthode 'restoreCamera':
+ *	MÃ©thode 'restoreCamera':
  *
- *	Réinitialise les coordonnées de la caméra.
+ *	RÃ©initialise les coordonnÃ©es de la camÃ©ra.
  *
  */
 void Game::restoreCamera()
@@ -178,17 +177,66 @@ void Game::restoreCamera()
 	camera.x = camera.y = 0;
 }
 
-void Game::loadLevel(std::string lvlName)
+void Game::loadLevel(std::string lvlPath)
 {
-	
+	std::ifstream lvlFile(lvlPath, std::ios::in);
+	std::string line = "";
+	int tmW = 1, tmH = 1;
+
+	getline(lvlFile, line, '\n');
+
+	size_t xPos = line.find('x');
+
+	if (xPos == std::string::npos)
+	{
+		Log::toFile("loadLevel.error", "Une erreur est survenue lors du chargement du niveau: " + lvlPath);
+		return;
+	}
+
+	try
+	{
+		tmW = std::stoi(line.substr(0, xPos));
+		tmH = std::stoi(line.substr(xPos + 1));
+	}
+	catch (std::invalid_argument)
+	{
+		Log::toFile("loadLevel.error", "Une erreur est survenue lors de la lecture des dimensions du niveau: " + lvlPath);
+		return;
+	}
+
+	std::vector<GObject> blocks;
+	FileConfig blockPath(config.getPath("blocks"));
+
+	for (int n = 0; !lvlFile.eof() && n < tmH; n++)
+	{
+		getline(lvlFile, line, '\n');
+		std::istringstream strLine(line);
+		std::string blockLabel = "";
+
+		for (int m = 0; !strLine.eof() && m < tmW; m++)
+		{
+			getline(strLine, blockLabel, '|');
+
+			Block block({ m * 10, n * 10, (m + 1) * 10, (n + 1) * 10 },
+				        IMG_LoadTexture(r, blockPath.getPath(blockLabel).c_str())
+			            );
+
+			// this->game.push_back(&block);
+
+			blocks.push_back(block.getGObject());
+		}
+	}
+
+	this->layers.push_back(blocks);
+	lvlFile.close();
 }
 
 /*
-*	Méthode 'events':
+*	MÃ©thode 'events':
 *
-*	Cette méthode est appelée à chaque image. Son but est d'appeler la
-*	méthode 'events' de chaque objet du jeu, permettant la gestion des
-*	entrées du joueur (clavier, souris, etc).
+*	Cette mÃ©thode est appelÃ©e Ã  chaque image. Son but est d'appeler la
+*	mÃ©thode 'events' de chaque objet du jeu, permettant la gestion des
+*	entrÃ©es du joueur (clavier, souris, etc).
 *
 */
 void Game::events()
@@ -202,13 +250,13 @@ void Game::events()
 	}
 
 	/*
-	 *	'gui': vecteur contenant des pointeurs vers les éléments
-	 *	de l'interface utilisateur (menus, boutons, etc). Ces éléments
-	 *	ne sont pas affectés par l'état du jeu (en pause ou non).
+	 *	'gui': vecteur contenant des pointeurs vers les Ã©lÃ©ments
+	 *	de l'interface utilisateur (menus, boutons, etc). Ces Ã©lÃ©ments
+	 *	ne sont pas affectÃ©s par l'Ã©tat du jeu (en pause ou non).
 	 *
-	 *	'game': vecteur contenant des pointeurs vers les éléments du
-	 *	jeu (joueur, entités, décorations etc), qui seront, eux, affectés
-	 *	par l'état de pause du jeu.
+	 *	'game': vecteur contenant des pointeurs vers les Ã©lÃ©ments du
+	 *	jeu (joueur, entitÃ©s, dÃ©corations etc), qui seront, eux, affectÃ©s
+	 *	par l'Ã©tat de pause du jeu.
 	 *
 	 */
 	for (unsigned i = 0; i < gui.size(); i++)
@@ -226,12 +274,12 @@ void Game::events()
 }
 
 /*
- *	Méthode 'process':
+ *	MÃ©thode 'process':
  *
- *	Cette méthode va appeler la méthode 'update' de chaque objet du
- *	jeu. Leur méthode 'process' est principalement utilisée pour le
+ *	Cette mÃ©thode va appeler la mÃ©thode 'update' de chaque objet du
+ *	jeu. Leur mÃ©thode 'process' est principalement utilisÃ©e pour le
  *	calcul de positions ou de vitesses, de collisions, de modifications
- *	à l'objet graphique, etc.
+ *	Ã  l'objet graphique, etc.
  *
  */
 void Game::process()
@@ -257,10 +305,10 @@ void Game::process()
 }
 
 /*
- *	Méthode 'render':
+ *	MÃ©thode 'render':
  *
- *	Cette méthode permet l'affichage de la totalité des
- *	éléments graphiques présents dans le membre 'layers'.
+ *	Cette mÃ©thode permet l'affichage de la totalitÃ© des
+ *	Ã©lÃ©ments graphiques prÃ©sents dans le membre 'layers'.
  *
  */
 void Game::render()
@@ -277,9 +325,9 @@ void Game::render()
 }
 
 /*
- *	Méthode 'resize':
+ *	MÃ©thode 'resize':
  *
- *	Modifie la taille de la fenêtre.
+ *	Modifie la taille de la fenÃªtre.
  *
  */
 void Game::resize(int width, int height)
@@ -289,9 +337,9 @@ void Game::resize(int width, int height)
 }
 
 /*
- *	Méthode 'setFullscreenMode':
+ *	MÃ©thode 'setFullscreenMode':
  *
- *	Modifie le mode d'affichage de la fenêtre (plein écran, fenêtré, etc).
+ *	Modifie le mode d'affichage de la fenÃªtre (plein Ã©cran, fenÃªtrÃ©, etc).
  *
  */
 void Game::setFullscreenMode(FullscreenMode mode)
@@ -313,9 +361,9 @@ void Game::setFullscreenMode(FullscreenMode mode)
 }
 
 /*
- *	Méthodes 'get_w' et 'get_h':
+ *	MÃ©thodes 'get_w' et 'get_h':
  *
- *	Retournent respectivement la largeur et la hauteur de la fenêtre.
+ *	Retournent respectivement la largeur et la hauteur de la fenÃªtre.
  *
  */
 int Game::get_w() const
@@ -329,9 +377,9 @@ int Game::get_h() const
 }
 
 /*
- *	Méthode 'get_freq':
+ *	MÃ©thode 'get_freq':
  *
- *	Retourne la fréquence processeur.
+ *	Retourne la frÃ©quence processeur.
  *
  */
 Uint64 Game::get_freq() const
@@ -340,9 +388,9 @@ Uint64 Game::get_freq() const
 }
 
 /*
- *	Méthodes 'get(Window/Renderer)Flags':
+ *	MÃ©thodes 'get(Window/Renderer)Flags':
  *
- *	Retournent les propriétés de la fenêtre/de l'outil de rendu.
+ *	Retournent les propriÃ©tÃ©s de la fenÃªtre/de l'outil de rendu.
  *
  */
 SDL_WindowFlags Game::getWindowFlags() const
@@ -356,10 +404,10 @@ SDL_RendererFlags Game::getRendererFlags() const
 }
 
 /*
- *	Méthode 'setRendererFlags':
+ *	MÃ©thode 'setRendererFlags':
  *
- *	Réinitialise l'outil de rendu avec des propriétés précisées
- *	en paramètre 'flags'.
+ *	RÃ©initialise l'outil de rendu avec des propriÃ©tÃ©s prÃ©cisÃ©es
+ *	en paramÃ¨tre 'flags'.
  *
  */
 void Game::setRendererFlags(SDL_RendererFlags flags)
@@ -369,11 +417,11 @@ void Game::setRendererFlags(SDL_RendererFlags flags)
 }
 
 /*
- *	Méthode 'cleanup':
+ *	MÃ©thode 'cleanup':
  *
- *	Appelée au déconstructeur de l'objet global, cette
- *	méthode permet le nettoyage mémoire des différents
- *	éléments (ici la fenêtre, l'outil de rendu ainsi que
+ *	AppelÃ©e au dÃ©constructeur de l'objet global, cette
+ *	mÃ©thode permet le nettoyage mÃ©moire des diffÃ©rents
+ *	Ã©lÃ©ments (ici la fenÃªtre, l'outil de rendu ainsi que
  *	le flux audio principal).
  *
  */

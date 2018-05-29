@@ -30,7 +30,7 @@
 
 #undef _main
 
-std::string configPath = "../config/gameconfig";
+const std::string configPath = "../config/gameconfig";
 
 int main(int argc, char* args[])
 {
@@ -38,7 +38,7 @@ int main(int argc, char* args[])
 	SDL_Init(SDL_INIT_EVERYTHING); Pa_Initialize();
 
 	/*
-	 *	Création de l'objet global (voir Game.h, Game.cpp) dans
+	 *	CrÃ©ation de l'objet global (voir Game.h, Game.cpp) dans
 	 *	le dossier "src/engine".
 	 *
 	 */
@@ -46,13 +46,17 @@ int main(int argc, char* args[])
 		"He Needs Some Milk!",
 		configPath,
 		SDL_WINDOW_SHOWN,
-		SDL_RENDERER_ACCELERATED,
-		/**/
+		SDL_RENDERER_ACCELERATED
 	);
+
+	// Encore d'autres tests
+	FileConfig level(g.config.getPath("levels"));
+	 
+	g.loadLevel(level.getPath("test"));
 
 	/*
 	 *	Boucle principale.
-	 *	Voir Game.h pour toutes les méthodes utilisées.
+	 *	Voir Game.h pour toutes les mÃ©thodes utilisÃ©es.
 	 *
 	 */
 	while (!g.shouldQuit)

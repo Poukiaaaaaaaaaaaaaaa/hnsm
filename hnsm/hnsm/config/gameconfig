@@ -9,3 +9,5 @@ texture=../res/img/texture.list
 
 > Fichier contenant la liste des niveaux
 levels=../res/levels/levels.list
+
+blocks=../res/img/blocs/block.list

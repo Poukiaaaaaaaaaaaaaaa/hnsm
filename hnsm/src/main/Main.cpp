@@ -61,11 +61,11 @@ int main(int argc, char* args[])
 	std::vector<ButtonData> button = {
 		ButtonData(IMG_LoadTexture(g.r, texturePaths.getPath("button_normal").c_str()),
 		           IMG_LoadTexture(g.r, texturePaths.getPath("button_hovered").c_str()),
-				   callback, &g, { 0, 0, s, s })
+				   callback, &g, { 1, 0, s, s })
 	};
 	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI,	0);
 	
-	Log::toFile("debug.txt", std::to_string(g.layers[0][0].linked->get_dim().y));
+	Log::toFile("debug.txt", std::to_string(g.physicalEngine[0].get_speed().y));
 	// tests
 
 	// Test second !

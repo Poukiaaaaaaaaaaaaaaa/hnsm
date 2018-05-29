@@ -25,7 +25,7 @@ private :
 	vect speed;
 	bool isStatic;
 	bool gravity;
-	void(*callback)(SDL_Rect * dim, vect * s);
+	void(*callback)(floating_rect * dim, vect * s);
 
 public:	
 	ParentObject * linked;
@@ -39,5 +39,5 @@ public:
 	void add_xSpeed(float vx);
 	void add_ySpeed(float vy);
 	vect get_speed();
-	PObject(PObject* object, vect s, bool g = true, void(*cb)(SDL_Rect * dim, vect * s) = nullptr);
+	PObject(ParentObject* object, vect s, bool g = true, void(*cb)(floating_rect * dim, vect * s) = nullptr);
 };

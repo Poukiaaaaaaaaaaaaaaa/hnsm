@@ -29,7 +29,7 @@ public:
 	
 
 	Player();
-	Player(Game * g, std::vector<SDL_Texture*> sprites, SDL_Rect);
+	Player(Game * g, std::vector<SDL_Texture*> sprites, floating_rect);
 	~Player();
 
 	void update();

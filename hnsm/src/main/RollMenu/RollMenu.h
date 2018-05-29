@@ -29,7 +29,7 @@ class RollMenu : public ParentObject
 	std::vector<Button*> buttons;
 
 public:
-	RollMenu(Game& g, SDL_Texture * h, SDL_Texture * n, SDL_Rect d, std::vector<ButtonData>& bd,
+	RollMenu(Game& g, SDL_Texture * h, SDL_Texture * n, floating_rect d, std::vector<ButtonData>& bd,
 		ElemType t, unsigned layer
 	);
 	~RollMenu();

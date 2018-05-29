@@ -1,8 +1,9 @@
 #include "PObject.h"
+#include "Log.h"
 
 float gravityAcc = 1.5;
 
-PObject::PObject(PObject* object, vect s, bool g, void(*cb)(SDL_Rect * dim, vect* s)) : gravity(g), speed(s), callback(cb)
+PObject::PObject(ParentObject* object, vect s, bool g, void(*cb)(floating_rect * dim, vect* s)) : gravity(g), speed(s), callback(cb), linked(object), isStatic(false)
 {
 }
 
@@ -46,8 +47,8 @@ void PObject::process(std::vector<PObject> & PObjects)
 
 	if (!isStatic) {
 
-		SDL_Rect ndim = linked -> dim;
-		SDL_Rect &dim = linked -> dim;
+		floating_rect ndim = linked -> dim;
+		floating_rect &dim = linked -> dim;
 		bool xCollision = false, yCollision = false;
 
 		if (callback)
@@ -60,10 +61,10 @@ void PObject::process(std::vector<PObject> & PObjects)
 
 		if (gravity)
 		{
-			speed.y -= gravityAcc;
+			speed.y += gravityAcc;
 		}
 
-		SDL_Rect otherDim;
+		floating_rect otherDim;
 
 		for (unsigned i = 0; i < PObjects.size(); i++)
 		{
@@ -85,16 +86,19 @@ void PObject::process(std::vector<PObject> & PObjects)
 				break;
 			}
 
-			if (!xCollision)
-			{
-				dim.x = ndim.x;
-			}
 
-			if (!yCollision)
-			{
-				dim.y = ndim.y;
-			}
+		}
 
+		Log::toFile("debug.txt", std::to_string(xCollision));
+
+		if (!xCollision)
+		{
+			dim.x = ndim.x;
+		}
+
+		if (!yCollision)
+		{
+			dim.y = ndim.y;
 		}
 	}
 

@@ -9,12 +9,12 @@
 class ParentObject : public UI
 {
 public:
-	SDL_Rect dim;
+	floating_rect dim;
 
 	ParentObject();
-	ParentObject(SDL_Rect);
+	ParentObject(floating_rect);
 	~ParentObject();
 
-	SDL_Rect get_dim() const;
-	void set_dim(SDL_Rect);
+	floating_rect get_dim() const;
+	void set_dim(floating_rect);
 };

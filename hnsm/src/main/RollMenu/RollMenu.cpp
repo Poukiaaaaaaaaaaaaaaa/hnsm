@@ -4,7 +4,7 @@
 #define NOT_HOVERED 0
 
 RollMenu::RollMenu(
-	Game& g, SDL_Texture * h, SDL_Texture * n, SDL_Rect d, std::vector<ButtonData>& bd, ElemType t, unsigned layer
+	Game& g, SDL_Texture * h, SDL_Texture * n, floating_rect d, std::vector<ButtonData>& bd, ElemType t, unsigned layer
 ) : linked(&g), isOpened(false), canPress(true), layerIndexa(layer)
 {
 	dim = d;
@@ -16,7 +16,7 @@ RollMenu::RollMenu(
 
 	for (unsigned i = 0; i < bd.size(); i++)
 	{
-		bd[i].dim = { d.x, ((int)i + 1) * d.h + d.y, d.w, d.h };
+		bd[i].dim = { d.x, ((float)i + 1) * d.h + d.y, d.w, d.h };
 		buttons.push_back(new Button(*linked, layerIndexa, bd[i]));
 		linked->layers[layerIndexa][buttons[i]->indexb].set_should_draw(false);
 	}

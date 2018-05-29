@@ -43,7 +43,7 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 		Log::toSdlError("error.log", "TTF_Init: ", __FILE__, __LINE__);
 	}
 
-	float wx, wy;
+	int wx, wy;
 	int ww, wh;
 	FileConfig config(cfgPath);
 
@@ -93,7 +93,7 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 
 	camera.x = camera.y = 0;
 
-	player = new Player(this, { IMG_LoadTexture(r ,/*texturePath.getPath("player").c_str()*/ "../res/img/player/example1.png") }, { 1.0,0.0,150,300 });
+	player = new Player(this, { IMG_LoadTexture(r ,texturePath.getPath("player").c_str())}, { 1.0,0.0,150,300 });
 
 	a.startStream();
 }

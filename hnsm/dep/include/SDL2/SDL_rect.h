@@ -61,11 +61,21 @@ typedef struct SDL_Point
  *  \sa SDL_UnionRect
  *  \sa SDL_EnclosePoints
  */
+
+
 typedef struct SDL_Rect
 {
     int x, y;
     int w, h;
 } SDL_Rect;
+
+typedef struct floating_rect
+{
+	float x, y;
+	int w, h;
+	operator SDL_Rect() const { return { (int)this->x, (int)this->y, this->w, this->h }; }
+} floating_rect;
+
 
 /**
  *  \brief Returns true if point resides inside a rectangle.

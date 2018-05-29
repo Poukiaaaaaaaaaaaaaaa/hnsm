@@ -18,23 +18,47 @@
 
 #undef _main
 
+/*
+ *	Différents types d'objets graphiques
+ * 
+ */
 enum GObjectType
 {
 	STATIC, ANIMATED, TEXT
 };
 
+/*
+ *	Différentes propriétés de texte
+ *
+ */
 enum TextTag
 {
 	BLENDED, SHADED
 };
 
+/*
+ *	La classe 'GObject' est fondamentale. Elle permet la création
+ *	d'objets graphiques à partir de textures SDL. À leur création,
+ *	les objets graphiques seront ajoutés au membre 'layers' de l'objet
+ *	global (voir Game.h) puis seront affichés à chaque actualisation
+ *	du jeu.
+ *
+ */
 class GObject
 {
 	friend class Animation;
 
 private:
+	/*
+	 *	Type d'objet graphique (statique, animé ou texte).
+	 *
+	 */
 	GObjectType type;
 
+	/*
+	 *	Membres propres aux objets de type texte.
+	 *
+	 */
 	TextTag TxtTag;
 	std::string text;
 	int size;
@@ -42,6 +66,10 @@ private:
 	SDL_Color c;
 	SDL_Color bg;
 
+	/*
+	 *	Membres propres aux objets graphiques animés.
+	 *
+	 */
 	SDL_Rect clipSize;
 	std::vector<Animation> textures;
 	unsigned currentTexture;
@@ -51,6 +79,10 @@ private:
 	bool shouldDraw;
 
 public:
+	/*
+	 *	Méthodes et constructeurs: voir GObject.cpp
+	 *
+	 */
 	ParentObject * linked;
 
 	GObject();

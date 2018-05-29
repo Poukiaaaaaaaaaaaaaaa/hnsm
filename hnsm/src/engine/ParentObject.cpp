@@ -5,7 +5,7 @@ ParentObject::ParentObject()
 {
 }
 
-ParentObject::ParentObject(SDL_Rect dimn)
+ParentObject::ParentObject(floating_rect dimn)
 	: dim(dimn)
 {
 }
@@ -14,12 +14,12 @@ ParentObject::~ParentObject()
 {
 }
 
-SDL_Rect ParentObject::get_dim() const
+floating_rect ParentObject::get_dim() const
 {
 	return dim;
 }
 
-void ParentObject::set_dim(SDL_Rect dimn)
+void ParentObject::set_dim(floating_rect dimn)
 {
 	dim = dimn;
 }

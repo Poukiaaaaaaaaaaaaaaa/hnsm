@@ -23,11 +23,11 @@
 #include "PObject.h"
 #include "FileConfig/FileConfig.h"
 #include "Block/Block.h"
-
+#include "Player/Player.h"
 #undef _main
 
 /*
- *	Différents modes de résolution (définis par SDL)
+ *	DiffÃ©rents modes de rÃ©solution (dÃ©finis par SDL)
  *
  */
 enum FullscreenMode
@@ -36,19 +36,19 @@ enum FullscreenMode
 };
 
 /*
- *	Classe principale: contient l'intégralité des membres utiles
- *	à la gestion du jeu.
+ *	Classe principale: contient l'intÃ©gralitÃ© des membres utiles
+ *	Ã  la gestion du jeu.
  *
  */
 class Game
 {
 private:
 	/*
-	 *	Membres utiles à la fenètre:
+	 *	Membres utiles Ã  la fenÃ¨tre:
 	 *
-	 *	'title': Titre de la fenêtre
-	 *	'wflags': paramètres de la fenêtre
-	 *	'rflags': paramètres de rendu
+	 *	'title': Titre de la fenÃªtre
+	 *	'wflags': paramÃ¨tres de la fenÃªtre
+	 *	'rflags': paramÃ¨tres de rendu
 	 *
 	 */
 	std::string title;
@@ -56,7 +56,7 @@ private:
 	SDL_RendererFlags rflags;
 
 	/*
-	 *	Membres utiles à la gestion de la fréquence d'actualisation
+	 *	Membres utiles Ã  la gestion de la frÃ©quence d'actualisation
 	 *	du jeu (nombre d'images par seconde)
 	 *
 	 */
@@ -84,12 +84,12 @@ public:
 	bool isPaused = false;
 
 	/*
-	 *	Membres permettant la gestion des événements:
+	 *	Membres permettant la gestion des Ã©vÃ©nements:
 	 *
 	 *	'e': 
-	 *	'mouse_x', 'mouse_y', etc: gestion des coordonnées de la souris:
-	 *	- 'mouse_x' et 'mouse_y': coordonnées actuelles de la souris
-	 *	- 'pmouse_x' et 'pmouse_y': coordonnées de la souris à l'image précédente
+	 *	'mouse_x', 'mouse_y', etc: gestion des coordonnÃ©es de la souris:
+	 *	- 'mouse_x' et 'mouse_y': coordonnÃ©es actuelles de la souris
+	 *	- 'pmouse_x' et 'pmouse_y': coordonnÃ©es de la souris Ã  l'image prÃ©cÃ©dente
 	 *
 	 */
 	SDL_Event e;
@@ -99,38 +99,39 @@ public:
 	/*
 	 *	'gui': vecteur contenant les objets de l'interface utilisateur (voir UI.h)
 	 *	'game': vecteur contenant les objets du jeu (voir UI.h)
-	 *
+	 *	'player' : le personnage controllÃ© par le joueur (voir Player.h)
 	 */
 	std::vector<UI*> gui;
 	std::vector<UI*> game;
+	Player * player;
 
 	/*
-	 *	Membres utiles à la gestion des graphismes:
+	 *	Membres utiles Ã  la gestion des graphismes:
 	 *
-	 *	'w': membre pointant vers les données de la fenêtre
-	 *	'dim': membre contenant les dimensions de la fenêtre
+	 *	'w': membre pointant vers les donnÃ©es de la fenÃªtre
+	 *	'dim': membre contenant les dimensions de la fenÃªtre
 	 *	'r': membre pointant vers l'outil de rendu
-	 *	't': vecteur contenant toutes les textures chargées dans le
+	 *	't': vecteur contenant toutes les textures chargÃ©es dans le
 	 *	constructeur (voir Game.cpp)
 	 *	'layers': vecteur contenant chaque couche de l'affichage (chaque couche
-	 *	étant composée des objets graphiques à afficher)
-	 *	'camera': membre correspondant à la "caméra", utilisé pour le rendu de
+	 *	Ã©tant composÃ©e des objets graphiques Ã  afficher)
+	 *	'camera': membre correspondant Ã  la "camÃ©ra", utilisÃ© pour le rendu de
 	 *	certains objets graphiques
 	 *
 	 */
 	SDL_Window *w;
 	SDL_Rect dim;
 	SDL_Renderer *r;
-	std::vector<std::vector<GObject>> layers;
+	std::vector<GObject> layers[10];
 	std::vector<PObject> physicalEngine;
 	Pair camera;
 
 	/*
 	 *	Membres permettant la gestion de l'audio:
 	 *
-	 *	'a': membre principal, contenant toutes les méthodes liées à l'audio (voir Audio.cpp)
-	 *	'sound': vecteur contenant des données audio chargées dans le constructeur (voir Game.cpp)
-	 *	'loop': vecteur contenant des données audio concernant les "loop", également chargées
+	 *	'a': membre principal, contenant toutes les mÃ©thodes liÃ©es Ã  l'audio (voir Audio.cpp)
+	 *	'sound': vecteur contenant des donnÃ©es audio chargÃ©es dans le constructeur (voir Game.cpp)
+	 *	'loop': vecteur contenant des donnÃ©es audio concernant les "loop", Ã©galement chargÃ©es
 	 *	dans le constructeur (voir Game.cpp)
 	 *
 	 */
@@ -142,7 +143,7 @@ public:
 
 public:
 	/*
-	 *	Méthodes et construteur: voir Game.cpp
+	 *	MÃ©thodes et construteur: voir Game.cpp
 	 *
 	 */
 	void tick_start();
@@ -154,7 +155,8 @@ public:
 	Game(std::string title,
 		std::string cfgPath,
 		SDL_WindowFlags wflags,
-		SDL_RendererFlags rflags
+		SDL_RendererFlags rflags,
+		FileConfig texturePath
 	);
 
 	void resize(int w, int h);

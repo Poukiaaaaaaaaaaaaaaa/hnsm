@@ -7,8 +7,10 @@
 #include <SDL2\SDL.h>
 
 //engine headers
-#include "Game.h"
 #include "ParentObject.h"
+#include "PObject.h"
+
+class Game;
 
 class Player : public ParentObject
 {
@@ -18,8 +20,18 @@ class Player : public ParentObject
 	unsigned layerIndexB;
 
 public:
-	Player(Game * g, std::vector<SDL_Texture*>& sprites, SDL_Rect&);
+	struct
+	{
+		float maxSpeed;
+		float speed;
+		float acc;
+	} walk;
+	
+
+	Player();
+	Player(Game * g, std::vector<SDL_Texture*> sprites, floating_rect);
 	~Player();
 
 	void update();
+	void events();
 };

@@ -3,7 +3,6 @@
 #include <vector>
 #include <functional>
 #include <cmath>
-
 #include <fstream>
 
 //SDL headers
@@ -33,16 +32,16 @@
 
 std::string configPath = "../config/gameconfig";
 
-void callback(void* data)
-{
-	((Game*)data)->shouldQuit = true;
-}
-
 int main(int argc, char* args[])
 {
 
 	SDL_Init(SDL_INIT_EVERYTHING); Pa_Initialize();
 
+	/*
+	 *	Création de l'objet global (voir Game.h, Game.cpp) dans
+	 *	le dossier "src/engine".
+	 *
+	 */
 	Game g(
 		"He Needs Some Milk",
 		configPath,
@@ -50,31 +49,11 @@ int main(int argc, char* args[])
 		(SDL_RendererFlags)(SDL_RENDERER_ACCELERATED)
 	);
 
-	// tests (enlever si besoin)
-	FileConfig cfg(configPath);
-
-	FileConfig texturePaths(cfg.getStr("texture"));
-
-	int s = g.get_w() / 10;
-
-	std::vector<ButtonData> button = {
-		ButtonData(IMG_LoadTexture(g.r, texturePaths.getPath("button_normal").c_str()),
-		           IMG_LoadTexture(g.r, texturePaths.getPath("button_hovered").c_str()),
-				   callback, &g, { 0, 0, s, s }),
-	};
-	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI);
-	// tests
-
-	// Test second !
-	// L'idée, c'est d'avoir ceci:
 	/*
-	 * FileConfig level(cfg.getPath("levels");
-	 * 
-	 * g.loadLevel(level.getPath("test");
-	 *
+	 *	Boucle principale.
+	 *	Voir Game.h pour toutes les méthodes utilisées.
 	 *
 	 */
-
 	while (!g.shouldQuit)
 	{
 		g.tick_start();

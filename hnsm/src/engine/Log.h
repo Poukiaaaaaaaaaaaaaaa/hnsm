@@ -11,6 +11,11 @@
 //libsndfile headers
 #include <libsndfile\sndfile.h>
 
+/*
+ *	Classe dont les méthodes statiques permettent l'écriture
+ *	simplifié dans des fichiers.
+ *
+ */
 class Log
 {
 private:

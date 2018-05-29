@@ -1,5 +1,10 @@
 #include "Log.h"
 
+/*
+ *	Méthode d'écriture basique: écrit une chaîne de
+ *	caractères dans un fichier.
+ *
+ */
 void Log::toFile(std::string filePath, std::string msg)
 {
 	std::ofstream out(filePath, std::ios::app);
@@ -7,6 +12,13 @@ void Log::toFile(std::string filePath, std::string msg)
 	out.close();
 }
 
+/*
+ *	Méthode d'écriture avec vérification d'erreur SDL:
+ *	Récupère une potentielle erreur liées à SDL puis l'écrit dans
+ *	un fichier, précédée par le fichier et la ligne à laquelle
+ *	l'erreur est intervenue.
+ *
+ */
 void Log::toSdlError(std::string errorPath, std::string msg, const char *file, const int line)
 {
 	std::ofstream error(errorPath, std::ios::app);
@@ -15,12 +27,9 @@ void Log::toSdlError(std::string errorPath, std::string msg, const char *file, c
 }
 
 /*
- * Different error statuses:
- * SF_ERR_NO_ERROR             = 0
- * SF_ERR_UNRECOGNISED_FORMAT  = 1
- * SF_ERR_SYSTEM			   = 2
- * SF_ERR_MALFORMED_FILE	   = 3
- * SF_ERR_UNSUPPORTED_ENCODING = 4
+ *	Même principe que la vérification d'erreurs via SDL,
+ *	cette fois ci utilisant la fonction de vérification d'erreurs
+ *	fournie par libsndfile.
  *
  */
 void Log::toSfError(std::string errorPath, std::string msg, SNDFILE *sndfile, const char *file, const int line)

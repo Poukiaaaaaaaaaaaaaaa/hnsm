@@ -5,16 +5,36 @@ GObject::GObject()
 
 }
 
+/*
+ *	Constructeur permettant la création d'objets graphiques animés
+ *	ou statiques. Un objet statique étant, entre autres, un objet animé
+ *	dont l'animation n'aurait qu'une seule image.
+ *
+ */
 GObject::GObject(ParentObject * lnk, std::vector<SDL_Texture*> animations, bool is_static,
 	int delay, unsigned clipc, SDL_Rect clipSize)
 	: clipSize(clipSize), is_static(is_static), type(clipc > 0 ? ANIMATED : STATIC), 
 	textureCount(animations.size()), alpha(255), shouldDraw(true), linked(lnk)
 {
+	/*
+	 *	Chaque 'GObject' a la possibilité de stocker plusieurs Animations.
+	 *	Chaque Animation représente une apparence différente. La totalité des
+	 *	animations sont ainsi chargées pendant le constructeur. Il sera ensuite
+	 *	possible de passer de l'une à l'autre (voir méthode 'set_current_texture').
+	 *
+	 */
 	for (unsigned i = 0; i < animations.size(); i++)
 	{
 		textures.push_back(Animation(animations[i], clipc, clipSize, delay));
 	}
 
+	/*
+	 *	Les dimensions de chaque 'GObject' sont stockées à l'intérieur d'un
+	 *	objet parent. Cet objet parent peut être, entre autres, nimporte quel
+	 *	élément du jeu ou de l'interface graphique, la totalité d'entre eux
+	 *	héritant de la classe 'ParentObject' (voir ParentObject.h).
+	 *
+	 */
 	SDL_Rect temp = linked->get_dim();
 	if (!temp.w || !temp.h)
 	{
@@ -25,6 +45,10 @@ GObject::GObject(ParentObject * lnk, std::vector<SDL_Texture*> animations, bool 
 	currentTexture = 0u;
 }
 
+/*
+ *	Constructeur propre aux 'GObject' de type texte.
+ *
+ */
 GObject::GObject(ParentObject * lnk, SDL_Renderer *r, std::string txt, SDL_Color c,
 	std::string fontPath, int size, bool is_static, TextTag tTag, SDL_Color b
 )	: text(txt), c(c), size(size), f(TTF_OpenFont(fontPath.c_str(), size)), TxtTag(tTag),
@@ -38,8 +62,20 @@ GObject::GObject(ParentObject * lnk, SDL_Renderer *r, std::string txt, SDL_Color
 	if (TxtTag == SHADED)
 		s = TTF_RenderText_Shaded(f, text.c_str(), c, bg);
 
+	/*
+	 *	La création d'un objet graphique de type texte consiste en
+	 *	la génération d'une texture à partir d'une chaîne de caractères,
+	 *	d'une taille de police et d'un fichier .ttf ou .otf via les
+	 *	fonctions 'TTF_RenderText_(Blended/Shaded)' ci-dessus.
+	 *
+	 */
 	textures.push_back(Animation(SDL_CreateTextureFromSurface(r, s), 0u, linked->get_dim(), 0));
 
+	/*
+	 *	La taille de l'objet est calculée à partir de la taille de la
+	 *	texture si aucune taille n'est fournie par le 'ParentObject'.
+	 *
+	 */
 	SDL_Rect temp = linked->get_dim();
 	if (!temp.w || !temp.h)
 	{
@@ -65,6 +101,10 @@ SDL_Texture* GObject::get_texture(unsigned index) const
 		return nullptr;
 }
 
+/*
+ *	'clipc' correspond au nombre d'images de l'animation.
+ *
+ */
 int GObject::get_clipc(unsigned index) const
 {
 	if (index < textures.size())
@@ -73,6 +113,11 @@ int GObject::get_clipc(unsigned index) const
 		return NULL;
 }
 
+/*
+ *	'clips' est un vecteur contenant les coordonnées des images
+ *	de l'animation sur l'image complète (voir Animation.h et .cpp).
+ *
+ */
 std::vector<SDL_Rect> GObject::get_clips(unsigned index) const
 {
 	if (index < textures.size())
@@ -81,6 +126,10 @@ std::vector<SDL_Rect> GObject::get_clips(unsigned index) const
 		return {};
 }
 
+/*
+ *	Renvoie le numéro de l'image actuelle de l'animation.
+ *
+ */
 int GObject::get_current_clip(unsigned index) const
 {
 	if (index < textures.size())
@@ -89,6 +138,10 @@ int GObject::get_current_clip(unsigned index) const
 		return NULL;
 }
 
+/*
+ *	Renvoie la taille des images de l'animation.
+ *
+ */
 SDL_Rect GObject::get_clip_size(unsigned index) const
 {
 	if (index < textures.size())
@@ -117,17 +170,30 @@ int GObject::get_alpha() const
 	return alpha;
 }
 
+/*
+ *	Permet la gestion de l'affichage des objets graphiques.
+ *	'shouldDraw' constitue la condition de dessin principale.
+ *
+ */
 void GObject::set_should_draw(bool should)
 {
 	shouldDraw = should;
 }
 
+/*
+ *	Change l'image actuelle de l'animation.
+ *
+ */
 void GObject::set_current_clip(unsigned clip)
 {
 	if (clip < textures[currentTexture].clipc)
 		textures[currentTexture].currentClip = clip;
 }
 
+/*
+ *	Modifie une texture dans le tableau de textures du 'GObject'.
+ *
+ */
 void GObject::set_texture(SDL_Texture *t, unsigned index)
 {
 	if (index < textures.size())
@@ -136,12 +202,22 @@ void GObject::set_texture(SDL_Texture *t, unsigned index)
 	}
 }
 
+/*
+ *	Modifie la texture/animation actuellement affichée.
+ *
+ */
 void GObject::set_current_texture(unsigned tIndex)
 {
 	if ((type == ANIMATED || type == STATIC) && tIndex < textures.size())
 		currentTexture = tIndex;
 }
 
+/*
+ *	Modifie le texte d'un objet graphique de type texte.
+ *	Fénère entre autres une nouvelle textures avec les nouvelles
+ *	propriétés de texte précisées en paramètre.
+ *
+ */
 void GObject::set_text(SDL_Renderer *r, std::string txt)
 {
 	text = txt;
@@ -164,6 +240,12 @@ void GObject::set_text(SDL_Renderer *r, std::string txt)
 	SDL_FreeSurface(s);
 }
 
+/*
+ *	Modifie la valeur du canal alpha du 'GObject'.
+ *	Dans le cadre de SDL, cette valeur est comprise
+ *	entre 0 et 255.
+ *
+ */
 void GObject::set_alpha(int val)
 {
 	if (val >= 0 && val <= 255)
@@ -183,10 +265,25 @@ void GObject::set_alpha(int val)
 	}
 }
 
+/*
+ *	Méthode fondamentale du 'GObject':
+ *
+ *	Affiche la texture à l'outil de rendu précisé en paramètre.
+ *
+ */
 void GObject::draw(SDL_Renderer *r, Pair cam)
 {
+	/*
+	 *	Condition principale de dessin.
+	 *
+	 */
 	if (shouldDraw)
 	{
+		/*
+		 *	Calcul des coordonnées finales en fonction
+		 *	de la caméra si l'objet en dépend (soit is_static = false)
+		 *
+		 */
 		SDL_Rect finalDim;
 		if (!is_static)
 		{
@@ -203,6 +300,13 @@ void GObject::draw(SDL_Renderer *r, Pair cam)
 			finalDim = linked->get_dim();
 		}
 
+		/*
+		 *	Affiche le 'GObject' en fonction de son type.
+		 *	L'affichage d'une texture se fait via la fonction
+		 *	'SDL_RenderCopy', prenant entre autres en paramètres
+		*	un outil de rendu et une texture.
+		 *
+		 */
 		switch (type)
 		{
 		case ANIMATED:

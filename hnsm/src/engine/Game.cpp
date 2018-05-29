@@ -36,16 +36,15 @@ void Game::set_frame_rate(unsigned fps)
 }
 
 Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags)
-	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags)
+	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags), config(cfgPath)
 {
 	if (TTF_Init())
 	{
 		Log::toSdlError("error.log", "TTF_Init: ", __FILE__, __LINE__);
 	}
 
-	float wx, wy;
+	int wx, wy;
 	int ww, wh;
-	FileConfig config(cfgPath);
 
 	FileConfig dispCfg(config.getPath("display"));
 
@@ -80,7 +79,16 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 		Log::toSdlError("error.log", "SDL_CreateRenderer: ", __FILE__, __LINE__);
 	}
 
-	KU
+	////load the audio data
+	//for (unsigned i = 0; i < audioPaths.size(); i++)
+	//{
+	//	sound.push_back(AudioData(audioPaths[i].c_str()));
+	//}
+
+	//for (unsigned i = 0; i < musicPaths.size(); i++)
+	//{
+	//	loop.push_back(AudioData(musicPaths[i].c_str()));
+	//}
 
 	camera.x = camera.y = 0;
 
@@ -111,19 +119,45 @@ void Game::loadLevel(std::string lvlPath)
 	if (xPos == std::string::npos)
 	{
 		Log::toFile("loadLevel.error", "Une erreur est survenue lors du chargement du niveau: " + lvlPath);
+		return;
 	}
-	else
+
+	try
 	{
-		try
+		tmW = std::stoi(line.substr(0, xPos));
+		tmH = std::stoi(line.substr(xPos + 1));
+	}
+	catch (std::invalid_argument)
+	{
+		Log::toFile("loadLevel.error", "Une erreur est survenue lors de la lecture des dimensions du niveau: " + lvlPath);
+		return;
+	}
+
+	std::vector<GObject> blocks;
+	FileConfig blockPath(config.getPath("blocks"));
+
+	for (int n = 0; !lvlFile.eof() && n < tmH; n++)
+	{
+		getline(lvlFile, line, '\n');
+		std::istringstream strLine(line);
+		std::string blockLabel = "";
+
+		for (int m = 0; !strLine.eof() && m < tmW; m++)
 		{
-			tmW = std::stoi(line.substr(0, xPos));
-			tmH = std::stoi(line.substr(xPos + 1));
-		}
-		catch (std::invalid_argument)
-		{
-			Log::toFile("loadLevel.error", "Une erreur est survenue lors de la lecture des dimensions du niveau: " + lvlPath);
+			getline(strLine, blockLabel, '|');
+
+			Block block({ m * 10, n * 10, (m + 1) * 10, (n + 1) * 10 },
+				        IMG_LoadTexture(r, blockPath.getPath(blockLabel).c_str())
+			            );
+
+			// this->game.push_back(&block);
+
+			blocks.push_back(block.getGObject());
 		}
 	}
+
+	this->layers.push_back(blocks);
+	lvlFile.close();
 }
 
 void Game::events()

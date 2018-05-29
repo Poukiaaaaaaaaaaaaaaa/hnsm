@@ -154,6 +154,8 @@
     <ClInclude Include="src\engine\PObject.h" />
     <ClInclude Include="src\engine\Misc.h" />
     <ClInclude Include="src\engine\ParentObject.h" />
+    <ClInclude Include="src\main\Block\Block.h" />
+    <ClInclude Include="src\main\FileConfig\FileConfig.h" />
     <ClInclude Include="src\main\RollMenu\RollMenu.h" />
     <ClInclude Include="src\engine\UI.h" />
     <ClInclude Include="src\engine\Pair.h" />
@@ -284,6 +286,7 @@
     <ClCompile Include="src\engine\Force.cpp" />
     <ClCompile Include="src\engine\ParentObject.cpp" />
     <ClCompile Include="src\engine\PObject.cpp" />
+    <ClCompile Include="src\main\Block\Block.cpp" />
     <ClCompile Include="src\main\FileConfig\FileConfig.cpp" />
     <ClCompile Include="src\main\RollMenu\RollMenu.cpp" />
     <ClCompile Include="src\engine\UI.cpp" />

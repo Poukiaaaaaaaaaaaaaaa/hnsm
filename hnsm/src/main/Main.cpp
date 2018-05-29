@@ -31,7 +31,7 @@
 
 #undef _main
 
-std::string configPath = "../config/gameconfig";
+const std::string configPath = "../config/gameconfig";
 
 void callback(void* data)
 {
@@ -50,30 +50,23 @@ int main(int argc, char* args[])
 		(SDL_RendererFlags)(SDL_RENDERER_ACCELERATED)
 	);
 
-	// tests (enlever si besoin)
-	FileConfig cfg(configPath);
+	// Encore d'autres tests
+	FileConfig level(g.config.getPath("levels"));
+	 
+	g.loadLevel(level.getPath("test"));
 
-	FileConfig texturePaths(cfg.getStr("texture"));
+	// tests (enlever si besoin)
+	/*FileConfig texturePaths(g.config.getStr("texture"));
 
 	int s = g.get_w() / 10;
-
+	 
 	std::vector<ButtonData> button = {
 		ButtonData(IMG_LoadTexture(g.r, texturePaths.getPath("button_normal").c_str()),
 		           IMG_LoadTexture(g.r, texturePaths.getPath("button_hovered").c_str()),
 				   callback, &g, { 0, 0, s, s })
 	};
-	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI);
+	Menu rm(g, MenuData(IMG_LoadTexture(g.r, texturePaths.getPath("background").c_str()), button), GUI);*/
 	// tests
-
-	// Test second !
-	// L'idée, c'est d'avoir ceci:
-	/*
-	 * FileConfig level(cfg.getPath("levels");
-	 * 
-	 * g.loadLevel(level.getPath("test"));
-	 *
-	 *
-	 */
 
 	while (!g.shouldQuit)
 	{

@@ -22,6 +22,7 @@
 #include "UI.h"
 #include "PObject.h"
 #include "FileConfig/FileConfig.h"
+#include "Block/Block.h"
 
 #undef _main
 
@@ -136,6 +137,8 @@ public:
 	Audio a;
 	std::vector<AudioData> sound;
 	std::vector<AudioData> loop;
+
+	FileConfig config;
 
 public:
 	/*

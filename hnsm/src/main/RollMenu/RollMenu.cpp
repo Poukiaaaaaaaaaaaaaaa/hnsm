@@ -4,13 +4,10 @@
 #define NOT_HOVERED 0
 
 RollMenu::RollMenu(
-	Game& g, SDL_Texture * h, SDL_Texture * n, SDL_Rect d, std::vector<ButtonData>& bd, ElemType t
-) : linked(&g), isOpened(false), canPress(true)
+	Game& g, SDL_Texture * h, SDL_Texture * n, SDL_Rect d, std::vector<ButtonData>& bd, ElemType t, unsigned layer
+) : linked(&g), isOpened(false), canPress(true), layerIndexa(layer)
 {
 	dim = d;
-
-	linked->layers.push_back({});
-	layerIndexa = linked->layers.size() - 1;
 
 	linked->layers[layerIndexa].push_back(GObject(
 		this, { n, h }, true

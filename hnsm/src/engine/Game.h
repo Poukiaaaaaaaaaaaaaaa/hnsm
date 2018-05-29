@@ -102,7 +102,7 @@ public:
 	 */
 	std::vector<UI*> gui;
 	std::vector<UI*> game;
-	Player player;
+	Player * player;
 
 	/*
 	 *	Membres utiles à la gestion des graphismes:
@@ -121,7 +121,7 @@ public:
 	SDL_Window *w;
 	SDL_Rect dim;
 	SDL_Renderer *r;
-	std::vector<std::vector<GObject>> layers;
+	std::vector<GObject> layers[10];
 	std::vector<PObject> physicalEngine;
 	Pair camera;
 
@@ -152,7 +152,8 @@ public:
 	Game(std::string title,
 		std::string cfgPath,
 		SDL_WindowFlags wflags,
-		SDL_RendererFlags rflags
+		SDL_RendererFlags rflags,
+		FileConfig texturePath
 	);
 
 	void resize(int w, int h);

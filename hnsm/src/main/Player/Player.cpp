@@ -1,13 +1,12 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(Game * g, std::vector<SDL_Texture*>& sprites, SDL_Rect& dimn)
+Player::Player(Game * g, std::vector<SDL_Texture*> sprites, SDL_Rect dimn)
 	: linked(g)
 {
 	dim = dimn;
 
-	linked->layers.push_back({});
-	layerIndexA = linked->layers.size() - 1;
+	layerIndexA = 0;
 
 	linked->layers[layerIndexA].push_back(GObject(
 		this, sprites, false
@@ -18,12 +17,22 @@ Player::Player(Game * g, std::vector<SDL_Texture*>& sprites, SDL_Rect& dimn)
 	linked->game.push_back(this);
 }
 
+Player::Player() 
+{
+
+}
+
 Player::~Player()
 {
 }
 
 
 void Player::update()
+{
+
+}
+
+void Player::events()
 {
 
 }

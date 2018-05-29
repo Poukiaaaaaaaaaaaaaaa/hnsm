@@ -26,9 +26,12 @@ public:
 		float speed;
 		float acc;
 	} walk;
+	
 
-	Player(Game * g, std::vector<SDL_Texture*>& sprites, SDL_Rect&);
+	Player();
+	Player(Game * g, std::vector<SDL_Texture*> sprites, SDL_Rect);
 	~Player();
 
 	void update();
+	void events();
 };

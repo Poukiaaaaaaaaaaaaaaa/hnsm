@@ -35,8 +35,8 @@ void Game::set_frame_rate(unsigned fps)
 	tick_target = (fps > 0) ? freq / fps_target : 0;
 }
 
-Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags)
-	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags), player()
+Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_RendererFlags rflags, FileConfig texturePath)
+	: title(title), freq(SDL_GetPerformanceFrequency()), wflags(wflags), rflags(rflags)
 {
 	if (TTF_Init())
 	{
@@ -92,6 +92,8 @@ Game::Game(std::string title, std::string cfgPath, SDL_WindowFlags wflags, SDL_R
 	//}
 
 	camera.x = camera.y = 0;
+
+	player = new Player(this, { IMG_LoadTexture(r ,/*texturePath.getPath("player").c_str()*/ "../res/img/player/example1.png") }, { 1.0,0.0,150,300 });
 
 	a.startStream();
 }
@@ -161,7 +163,7 @@ void Game::process()
 void Game::render()
 {
 	SDL_RenderClear(r);
-	for (unsigned i = 0; i < layers.size(); i++)
+	for (unsigned i = 0; i < 10; i++)
 	{
 		for (unsigned j = 0; j < layers[i].size(); j++)
 		{

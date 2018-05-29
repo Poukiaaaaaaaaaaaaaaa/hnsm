@@ -213,6 +213,7 @@ void GObject::draw(SDL_Renderer *r, Pair cam)
 			break;
 
 		case STATIC:
+			Log::toFile("debug.txt", std::to_string(finalDim.x));
 			SDL_SetTextureAlphaMod(textures[currentTexture].t, alpha);
 			SDL_RenderCopy(r, textures[currentTexture].t, NULL, &finalDim);
 			break;

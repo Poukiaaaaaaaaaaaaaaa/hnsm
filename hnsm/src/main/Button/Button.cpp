@@ -18,15 +18,13 @@ Button::Button(Game& g, int layerIndex, ButtonData& data)
 	callbackData = data.cbData;
 
 	indexa = layerIndex;
-	if (!linked->layers.size() || indexa >= linked->layers.size() || indexa < 0)
+	if (indexa < 10 || indexa < 0)
 	{
-		linked->layers.push_back({});
-		indexa = linked->layers.size() - 1;
+		linked->layers[indexa].push_back(GObject(
+			this, { data.not_hovered, data.hovered }, true
+		));
 	}
 
-	linked->layers[indexa].push_back(GObject(
-		this, { data.not_hovered, data.hovered }, true
-	));
 
 	indexb = linked->layers[indexa].size() - 1;
 }

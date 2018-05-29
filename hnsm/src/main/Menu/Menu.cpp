@@ -1,10 +1,8 @@
 #include "Menu.h"
 
-Menu::Menu(Game& g, MenuData data, ElemType t)
-	: linked(&g), isOpened(true)
+Menu::Menu(Game& g, MenuData data, ElemType t, unsigned layer)
+	: linked(&g), isOpened(true), layerIndex(layer)
 {
-	linked->layers.push_back({});
-	layerIndex = linked->layers.size() - 1;
 
 	background = ParentObject({ 0, 0, linked->get_w(), linked->get_h() });
 

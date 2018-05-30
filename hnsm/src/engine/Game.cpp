@@ -178,23 +178,24 @@ void Game::restoreCamera()
 	camera.x = camera.y = 0;
 }
 
+// Fonction de chargement d'un niveau
 void Game::loadLevel(std::string lvlPath)
 {
-	std::ifstream lvlFile(lvlPath, std::ios::in);
+	std::ifstream lvlFile(lvlPath, std::ios::in); // On ouvre le fichier du niveau en lecture seule
 	std::string line = "";
-	int tmW = 1, tmH = 1;
+	int tmW = 1, tmH = 1; // On initialise les variables pour la hauteur et la largeur de la tiledmap
 
-	getline(lvlFile, line, '\n');
+	getline(lvlFile, line, '\n'); // On récupère la première ligne et on la stocke dans une chaîne de caractère
 
-	size_t xPos = line.find('x');
+	size_t xPos = line.find('x'); // On récupère la position du caractère x dans la ligne
 
-	if (xPos == std::string::npos)
+	if (xPos == std::string::npos) // Si cette position est négative, c'est que le caractère recherché n'existe pas
 	{
 		Log::toFile("loadLevel.error", "Une erreur est survenue lors du chargement du niveau: " + lvlPath);
-		return;
+		return; // On signale une erreur et on arrête la fonction ici
 	}
 
-	try
+	try // On essaie de convertir les valeurs avant et après le caractère x
 	{
 		tmW = std::stoi(line.substr(0, xPos));
 		tmH = std::stoi(line.substr(xPos + 1));
@@ -202,25 +203,27 @@ void Game::loadLevel(std::string lvlPath)
 	catch (std::invalid_argument)
 	{
 		Log::toFile("loadLevel.error", "Une erreur est survenue lors de la lecture des dimensions du niveau: " + lvlPath);
-		return;
+		return; // Si il y a eu une erreur de conversion, on signale une erreur et on arrête la fonction ici
 	}
 
-	std::vector<GObject> blocks;
-	FileConfig blockPath(config.getPath("blocks"));
+	std::vector<GObject> blocks; // On crée la liste d'objets graphiques
+	FileConfig blockPath(config.getPath("blocks")); // On charge le fichier contenant les chemins vers les images des blocs
 
-	for (int n = 0; !lvlFile.eof() && n < tmH; n++)
+	for (int n = 0; !lvlFile.eof() && n < tmH; n++) // Tant que l'on est pas à la fin du fichier ou à la fin des lignes 
 	{
-		getline(lvlFile, line, '\n');
-		std::istringstream strLine(line);
+		getline(lvlFile, line, '\n'); // On récupère la ligne actuelle pour la mettre dans une chaîne de caractère
+		std::istringstream strLine(line); // On fait de cette chaîne de caractère un flux de caractères
 		std::string blockLabel = "";
 
-		for (int m = 0; !strLine.eof() && m < tmW; m++)
+		for (int m = 0; !strLine.eof() && m < tmW; m++) // Tant que l'on n'a pas atteint le bout de la ligne
 		{
-			getline(strLine, blockLabel, '|');
+			getline(strLine, blockLabel, '|'); // On stocke dans une chaîne de caractère la valeur entre chaque |  
 
 			Block block({ (float)(m * 10), (float)(n * 10), (m + 1) * 10, (n + 1) * 10 },
 				        IMG_LoadTexture(r, blockPath.getPath(blockLabel).c_str())
-			            );
+			            ); // On crée un objet bloc
+			// Ses coordonnées sont définies par sa position dans la tiledMap
+			// Son image est récupérée depuis le fichier contenant les paths
 
 			// this->game.push_back(&block);
 
@@ -228,8 +231,8 @@ void Game::loadLevel(std::string lvlPath)
 		}
 	}
 
-	this->layers[0] = blocks;
-	lvlFile.close();
+	this->layers[0] = blocks; // On met la liste des blocs dans une couche des objets graphiques
+	lvlFile.close(); // On ferme le fichier du niveau
 }
 
 /*
